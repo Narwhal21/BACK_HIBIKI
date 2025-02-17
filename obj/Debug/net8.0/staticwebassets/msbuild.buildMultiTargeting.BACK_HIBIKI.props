@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\BACK_HIBIKI.props" />
+</Project>
