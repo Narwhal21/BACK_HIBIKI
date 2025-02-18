@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // Si ha cambiado las plataformas de destino, asegúrese de actualizar la ruta de acceso del programa.
-            "program": "${workspaceFolder}/bin/Debug/net9.0/BACK_HIBIKI.dll",
+            "program": "${workspaceFolder}/bin/Debug/net8.0/BACK_HIBIKI.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
