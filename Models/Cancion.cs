@@ -1,28 +1,36 @@
-namespace Models;
+namespace Models
+{
+    public class Cancion
+    {
+        public int CancionId { get; set; }
+        public int AlbumId { get; set; }
+        public string Nombre { get; set; } = "";
+        public int Duracion { get; set; }
+        public string Ruta { get; set; } = "";
 
-public abstract class Cancion {
+        public Cancion() {}
 
-    public int CancionId { get; set; }
-    public int AlbumId { get; set; }
-    public string Nombre { get; set; } = "";
-    public int Duracion { get; set; }
-    public string Ruta { get; set; } = "";
+        public Cancion(int albumId, string nombre, int duracion, string ruta) 
+        {
+            AlbumId = albumId;
+            Nombre = nombre;
+            Duracion = duracion;
+            Ruta = ruta;
 
-    public Cancion() {}
+            if (string.IsNullOrWhiteSpace(nombre)) 
+            {
+                throw new ArgumentException("El nombre de la canción no puede estar vacío");
+            }
 
-    public Cancion(int albumId, string nombre, int duracion, string ruta) {
-        AlbumId = albumId;
-        Nombre = nombre;
-        Duracion = duracion;
-        Ruta = ruta;
-
-        if (string.IsNullOrWhiteSpace(nombre)) {
-            throw new ArgumentException("El nombre de la canción no puede estar vacío");
+            if (duracion <= 0) 
+            {
+                throw new ArgumentException("La duración debe ser un número positivo");
+            }
         }
-        if (duracion <= 0) {
-            throw new ArgumentException("La duración debe ser un número positivo");
+
+        public void MostrarDetalles() 
+        {
+            // Implementación del método MostrarDetalles
         }
     }
-
-    public abstract void MostrarDetalles();
 }
