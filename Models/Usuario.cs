@@ -1,7 +1,7 @@
 namespace Models;
 
-public abstract class Usuario {
-
+public class Usuario 
+{
     public int UserId { get; set; }
     public string Name { get; set; } = "";
     public string Email { get; set; } = "";
@@ -26,6 +26,5 @@ public abstract class Usuario {
             throw new ArgumentException("La contraseña debe tener al menos 6 caracteres");
         }
     }
-
-    public abstract void MostrarDetalles();
 }
+
