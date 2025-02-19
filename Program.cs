@@ -42,6 +42,13 @@ builder.Services.AddScoped<IUsuarioRepository>(provider =>
 // Add the CancionService to the DI container
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
+// Add the CancionRepository to the DI container
+builder.Services.AddScoped<IPlaylistRepository>(provider =>
+    new PlaylistRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
+
+// Add the CancionService to the DI container
+builder.Services.AddScoped<IPlaylistService, PlaylistService>();
+
 // You can add other services or configurations here
 
 var app = builder.Build();
