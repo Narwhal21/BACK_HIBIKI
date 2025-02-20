@@ -10,6 +10,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configuración de CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost",
+        builder => builder.WithOrigins("http://localhost:5173") // Origen de tu frontend
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
+
 var configuration = builder.Configuration;
 
 var databaseProvider = configuration["DatabaseProvider"] ?? "PostgreSQL";
@@ -35,21 +44,19 @@ builder.Services.AddScoped<ICancionRepository>(provider =>
 // Add the CancionService to the DI container
 builder.Services.AddScoped<ICancionService, CancionService>();
 
-// Add the CancionRepository to the DI container
+// Add the UsuarioRepository to the DI container
 builder.Services.AddScoped<IUsuarioRepository>(provider =>
     new UsuarioRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
 
-// Add the CancionService to the DI container
+// Add the UsuarioService to the DI container
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
-// Add the CancionRepository to the DI container
+// Add the PlaylistRepository to the DI container
 builder.Services.AddScoped<IPlaylistRepository>(provider =>
     new PlaylistRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
 
-// Add the CancionService to the DI container
+// Add the PlaylistService to the DI container
 builder.Services.AddScoped<IPlaylistService, PlaylistService>();
-
-// You can add other services or configurations here
 
 var app = builder.Build();
 
@@ -62,6 +69,8 @@ if (app.Environment.IsDevelopment())
 
 // Configure middlewares
 app.UseHttpsRedirection();
+app.UseCors("AllowLocalhost"); // Usar la política CORS
+
 app.UseAuthorization();
 
 // Map controllers
