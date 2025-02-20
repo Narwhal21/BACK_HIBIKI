@@ -4,15 +4,17 @@ namespace Models
     {
         public int CancionId { get; set; }
         public int AlbumId { get; set; }
+        public int CantanteId { get; set; }
         public string Nombre { get; set; } = "";
         public int Duracion { get; set; }
         public string Ruta { get; set; } = "";
 
         public Cancion() {}
 
-        public Cancion(int albumId, string nombre, int duracion, string ruta) 
+        public Cancion(int albumId, int cantanteid, string nombre, int duracion, string ruta) 
         {
             AlbumId = albumId;
+            CantanteId = cantanteid;
             Nombre = nombre;
             Duracion = duracion;
             Ruta = ruta;
