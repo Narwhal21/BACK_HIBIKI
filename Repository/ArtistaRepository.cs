@@ -23,7 +23,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "SELECT \"CantanteId\", \"Nombre\", \"OyentesMensuales\", \"Descripcion\" FROM \"Artista\"";
+                string query = "SELECT \"CantanteId\", \"Nombre\", \"OyentesMensuales\", \"Descripcion\", \"Image\" FROM \"Artista\"";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     using (var reader = await command.ExecuteReaderAsync())
@@ -35,7 +35,8 @@ namespace MyMusicApp.Repositories
                                 CantanteId = reader.GetInt32(0),
                                 Nombre = reader.GetString(1),
                                 OyentesMensuales = reader.GetInt32(2),
-                                Descripcion = reader.IsDBNull(3) ? null : reader.GetString(3)
+                                Descripcion = reader.IsDBNull(3) ? null : reader.GetString(3),
+                                Image = reader.GetString(4)
                             };
 
                             artistas.Add(artista);
@@ -55,7 +56,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "SELECT \"CantanteId\", \"Nombre\", \"OyentesMensuales\", \"Descripcion\" FROM \"Artista\" WHERE \"CantanteId\" = @Id";
+                string query = "SELECT \"CantanteId\", \"Nombre\", \"OyentesMensuales\", \"Descripcion\", \"Image\" FROM \"Artista\" WHERE \"CantanteId\" = @Id";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
@@ -69,7 +70,8 @@ namespace MyMusicApp.Repositories
                                 CantanteId = reader.GetInt32(0),
                                 Nombre = reader.GetString(1),
                                 OyentesMensuales = reader.GetInt32(2),
-                                Descripcion = reader.IsDBNull(3) ? null : reader.GetString(3)
+                                Descripcion = reader.IsDBNull(3) ? null : reader.GetString(3),
+                                Image = reader.GetString(4)
                             };
                         }
                     }
@@ -85,12 +87,13 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "INSERT INTO \"Artista\" (\"Nombre\", \"OyentesMensuales\", \"Descripcion\") VALUES (@Nombre, @OyentesMensuales, @Descripcion)";
+                string query = "INSERT INTO \"Artista\" (\"Nombre\", \"OyentesMensuales\", \"Descripcion\",\"Image\") VALUES (@Nombre, @OyentesMensuales, @Descripcion, @Image)";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Nombre", artista.Nombre);
                     command.Parameters.AddWithValue("@OyentesMensuales", artista.OyentesMensuales);
                     command.Parameters.AddWithValue("@Descripcion", artista.Descripcion ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Image", artista.Image);
 
                     await command.ExecuteNonQueryAsync();
                 }
@@ -103,13 +106,14 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "UPDATE \"Artista\" SET \"Nombre\" = @Nombre, \"OyentesMensuales\" = @OyentesMensuales, \"Descripcion\" = @Descripcion WHERE \"CantanteId\" = @CantanteId";
+                string query = "UPDATE \"Artista\" SET \"Nombre\" = @Nombre, \"OyentesMensuales\" = @OyentesMensuales, \"Descripcion\" = @Descripcion, \"Image\" = @Image WHERE \"CantanteId\",  = @CantanteId";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@CantanteId", artista.CantanteId);
                     command.Parameters.AddWithValue("@Nombre", artista.Nombre);
                     command.Parameters.AddWithValue("@OyentesMensuales", artista.OyentesMensuales);
                     command.Parameters.AddWithValue("@Descripcion", artista.Descripcion ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Image", artista.Image);
 
                     await command.ExecuteNonQueryAsync();
                 }
