@@ -36,7 +36,7 @@ namespace MyMusicApp.Repositories
                                 AlbumId = reader.GetInt32(1),
                                 CantanteId = reader.GetInt32(2),
                                 Nombre = reader.GetString(3),
-                                Duracion = reader.GetInt32(4),
+                                Duracion = reader.GetTimeSpan(4),
                                 Ruta = reader.GetString(5),
                                 Image = reader.GetString(6)
                             };
@@ -73,7 +73,7 @@ namespace MyMusicApp.Repositories
                                 AlbumId = reader.GetInt32(1),
                                 CantanteId = reader.GetInt32(2),
                                 Nombre = reader.GetString(3),
-                                Duracion = reader.GetInt32(4),
+                                Duracion = reader.GetTimeSpan(4),
                                 Ruta = reader.GetString(5),
                                 Image = reader.GetString(6)
                             };

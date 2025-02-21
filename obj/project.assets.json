@@ -2560,24 +2560,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Aleja\\.nuget\\packages\\": {}
+    "C:\\Users\\S2-PC00\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
+      "projectUniqueName": "C:\\Users\\S2-PC00\\Documents\\GitHub\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
       "projectName": "BACK_HIBIKI",
-      "projectPath": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
-      "packagesPath": "C:\\Users\\Aleja\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\obj\\",
+      "projectPath": "C:\\Users\\S2-PC00\\Documents\\GitHub\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
+      "packagesPath": "C:\\Users\\S2-PC00\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\S2-PC00\\Documents\\GitHub\\BACK_HIBIKI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Aleja\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\S2-PC00\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2653,7 +2660,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -2662,7 +2669,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "BACK_HIBIKI depends on System.Formats.Asn1 (>= 5.0.1) but System.Formats.Asn1 5.0.1 was not found. An approximate best match of System.Formats.Asn1 6.0.0 was resolved.",
+      "message": "BACK_HIBIKI depende de System.Formats.Asn1 (>= 5.0.1), pero no se encontró System.Formats.Asn1 5.0.1. Se resolvió una mejor coincidencia aproximada de System.Formats.Asn1 6.0.0.",
       "libraryId": "System.Formats.Asn1",
       "targetGraphs": [
         "net8.0"
@@ -2672,7 +2679,7 @@
       "code": "NU1902",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Azure.Identity' 1.10.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-m5vv-6r4h-3vj9",
+      "message": "El paquete \"Azure.Identity\" 1.10.3 tiene una vulnerabilidad de gravedad moderada conocida, https://github.com/advisories/GHSA-m5vv-6r4h-3vj9",
       "libraryId": "Azure.Identity",
       "targetGraphs": [
         "net8.0"
@@ -2682,7 +2689,7 @@
       "code": "NU1902",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Azure.Identity' 1.10.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-wvxc-855f-jvrv",
+      "message": "El paquete \"Azure.Identity\" 1.10.3 tiene una vulnerabilidad de gravedad moderada conocida, https://github.com/advisories/GHSA-wvxc-855f-jvrv",
       "libraryId": "Azure.Identity",
       "targetGraphs": [
         "net8.0"
@@ -2692,7 +2699,7 @@
       "code": "NU1903",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'System.Formats.Asn1' 6.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-447r-wph3-92pm",
+      "message": "El paquete \"System.Formats.Asn1\" 6.0.0 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-447r-wph3-92pm",
       "libraryId": "System.Formats.Asn1",
       "targetGraphs": [
         "net8.0"
