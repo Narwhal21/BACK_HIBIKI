@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "+PQPn8dNAlI=",
   "success": true,
   "projectFilePath": "C:\\Users\\S2-PC00\\Desktop\\back\\BACK_HIBIKI.csproj",
+=======
+  "dgSpecHash": "GIj8etmvVJU=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\S2-PC00\\Documents\\GitHub\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
+>>>>>>> fc9d3503007fd2c195c4d66ba0628d76b9bdf2bb
   "expectedPackageFiles": [
     "C:\\Users\\S2-PC00\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\S2-PC00\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
