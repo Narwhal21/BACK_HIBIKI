@@ -50,5 +50,11 @@ namespace MyMusicApp.Services
         {
             await _albumRepository.InitializeDataAsync();  // Llamada al repositorio para inicializar los datos
         }
+
+        // Nuevo método para obtener los álbumes por el ID del artista
+        public async Task<List<Album>> GetAlbumsByArtistIdAsync(int artistId)
+        {
+            return await _albumRepository.GetAlbumsByArtistIdAsync(artistId);  // Llamada al repositorio para obtener los álbumes por artistId
+        }
     }
 }
