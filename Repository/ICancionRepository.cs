@@ -21,5 +21,7 @@ namespace MyMusicApp.Repositories
 
         // Eliminar una canción
         Task<bool> DeleteAsync(int id);
+        Task<List<Cancion>> GetCancionesByAlbumIdAsync(int albumId);
+
     }
 }
