@@ -23,7 +23,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\" FROM \"Cancion\"";
+                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\" FROM \"Cancion\"";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     using (var reader = await command.ExecuteReaderAsync())
@@ -37,7 +37,8 @@ namespace MyMusicApp.Repositories
                                 CantanteId = reader.GetInt32(2),
                                 Nombre = reader.GetString(3),
                                 Duracion = reader.GetInt32(4),
-                                Ruta = reader.GetString(5)
+                                Ruta = reader.GetString(5),
+                                Image = reader.GetString(6)
                             };
 
                             canciones.Add(cancion);
@@ -57,7 +58,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "SELECT \"CancionId\", \"AlbumId\",\"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\" FROM \"Cancion\" WHERE \"CancionId\" = @Id";
+                string query = "SELECT \"CancionId\", \"AlbumId\",\"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\" FROM \"Cancion\" WHERE \"CancionId\" = @Id";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
@@ -73,7 +74,8 @@ namespace MyMusicApp.Repositories
                                 CantanteId = reader.GetInt32(2),
                                 Nombre = reader.GetString(3),
                                 Duracion = reader.GetInt32(4),
-                                Ruta = reader.GetString(5)
+                                Ruta = reader.GetString(5),
+                                Image = reader.GetString(6)
                             };
                         }
                     }
@@ -89,7 +91,7 @@ namespace MyMusicApp.Repositories
     {
         await connection.OpenAsync();
 
-        string query = "INSERT INTO \"Cancion\" (\"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\") VALUES (@AlbumId, @CantanteId, @Nombre, @Duracion, @Ruta)";
+        string query = "INSERT INTO \"Cancion\" (\"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\") VALUES (@AlbumId, @CantanteId, @Nombre, @Duracion, @Ruta, @Image)";
         using (var command = new NpgsqlCommand(query, connection))
         {
             command.Parameters.AddWithValue("@AlbumId", cancion.AlbumId);
@@ -97,6 +99,7 @@ namespace MyMusicApp.Repositories
             command.Parameters.AddWithValue("@Nombre", cancion.Nombre);
             command.Parameters.AddWithValue("@Duracion", cancion.Duracion);
             command.Parameters.AddWithValue("@Ruta", cancion.Ruta);
+            command.Parameters.AddWithValue("@Image", cancion.Image);
 
             await command.ExecuteNonQueryAsync();
         }
@@ -110,7 +113,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "UPDATE \"Cancion\" SET \"AlbumId\" = @AlbumId, \"CantanteId\" = @CantanteId, \"Nombre\" = @Nombre, \"Duracion\" = @Duracion, \"Ruta\" = @Ruta WHERE \"CancionId\" = @CancionId";
+                string query = "UPDATE \"Cancion\" SET \"AlbumId\" = @AlbumId, \"CantanteId\" = @CantanteId, \"Nombre\" = @Nombre, \"Duracion\" = @Duracion, \"Ruta\" = @Ruta , \"Image\" = @Image WHERE \"CancionId\" = @CancionId";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@CancionId", cancion.CancionId);
@@ -119,6 +122,7 @@ namespace MyMusicApp.Repositories
                     command.Parameters.AddWithValue("@Nombre", cancion.Nombre);
                     command.Parameters.AddWithValue("@Duracion", cancion.Duracion);
                     command.Parameters.AddWithValue("@Ruta", cancion.Ruta);
+                    command.Parameters.AddWithValue("@Image", cancion.Image);
 
                     await command.ExecuteNonQueryAsync();
                 }

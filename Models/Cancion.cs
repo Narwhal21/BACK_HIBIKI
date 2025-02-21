@@ -8,16 +8,18 @@ namespace Models
         public string Nombre { get; set; } = "";
         public int Duracion { get; set; }
         public string Ruta { get; set; } = "";
+        public string Image { get; set; } = "";
 
         public Cancion() {}
 
-        public Cancion(int albumId, int cantanteid, string nombre, int duracion, string ruta) 
+        public Cancion(int albumId, int cantanteid, string nombre, int duracion, string ruta, string image) 
         {
             AlbumId = albumId;
             CantanteId = cantanteid;
             Nombre = nombre;
             Duracion = duracion;
             Ruta = ruta;
+            Image = image;
 
             if (string.IsNullOrWhiteSpace(nombre)) 
             {

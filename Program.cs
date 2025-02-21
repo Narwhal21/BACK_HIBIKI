@@ -10,46 +10,38 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var configuration = builder.Configuration;
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
 
+var configuration = builder.Configuration;
 var databaseProvider = configuration["DatabaseProvider"] ?? "PostgreSQL";
 
-// Add the AlbumRepository to the DI container
+// Add repositories and services to the DI container
 builder.Services.AddScoped<IAlbumRepository>(provider =>
     new AlbumRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
-
-// Add the AlbumService to the DI container
 builder.Services.AddScoped<IAlbumService, AlbumService>();
 
-// Add the ArtistaRepository to the DI container
 builder.Services.AddScoped<IArtistaRepository>(provider =>
     new ArtistaRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
-
-// Add the ArtistaService to the DI container
 builder.Services.AddScoped<IArtistaService, ArtistaService>();
 
-// Add the CancionRepository to the DI container
 builder.Services.AddScoped<ICancionRepository>(provider =>
     new CancionRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
-
-// Add the CancionService to the DI container
 builder.Services.AddScoped<ICancionService, CancionService>();
 
-// Add the CancionRepository to the DI container
 builder.Services.AddScoped<IUsuarioRepository>(provider =>
     new UsuarioRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
-
-// Add the CancionService to the DI container
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
-// Add the CancionRepository to the DI container
 builder.Services.AddScoped<IPlaylistRepository>(provider =>
     new PlaylistRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
-
-// Add the CancionService to the DI container
 builder.Services.AddScoped<IPlaylistService, PlaylistService>();
-
-// You can add other services or configurations here
 
 var app = builder.Build();
 
@@ -63,6 +55,9 @@ if (app.Environment.IsDevelopment())
 // Configure middlewares
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
+// Enable CORS
+app.UseCors("AllowAllOrigins");
 
 // Map controllers
 app.MapControllers();
