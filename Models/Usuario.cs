@@ -1,12 +1,13 @@
 namespace Models;
 
 public class Usuario 
-{
-    public int UserId { get; set; }
-    public string Name { get; set; } = "";
-    public string Email { get; set; } = "";
-    public string Password { get; set; } = "";
-    public bool IsPremium { get; set; }
+    {
+        public int UserId { get; set; }
+        public string Name { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Password { get; set; } = "";
+        public bool IsPremium { get; set; }
+        public DateTime Fecha_Registro { get; set; }
 
     public Usuario() {}
 

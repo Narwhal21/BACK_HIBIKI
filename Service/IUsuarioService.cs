@@ -21,5 +21,8 @@ namespace MyMusicApp.Services
 
         // Método para eliminar un usuario por su ID
         Task<bool> DeleteAsync(int id);
+
+        // Actualiza la firma de login para que retorne el usuario
+        Task<Usuario> LoginAsync(string email, string password);
     }
 }

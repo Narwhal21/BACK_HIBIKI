@@ -3,69 +3,63 @@ using MyMusicApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Agrega servicios al contenedor.
 builder.Services.AddControllers();
 
-// Add Swagger for API documentation
+// Configuración de CORS: se crea una política que permite solicitudes desde http://localhost:5173
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+// Agrega Swagger para la documentación de la API
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var configuration = builder.Configuration;
-
 var databaseProvider = configuration["DatabaseProvider"] ?? "PostgreSQL";
 
-// Add the AlbumRepository to the DI container
+// Registración de repositorios y servicios
 builder.Services.AddScoped<IAlbumRepository>(provider =>
     new AlbumRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
-
-// Add the AlbumService to the DI container
 builder.Services.AddScoped<IAlbumService, AlbumService>();
 
-// Add the ArtistaRepository to the DI container
 builder.Services.AddScoped<IArtistaRepository>(provider =>
     new ArtistaRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
-
-// Add the ArtistaService to the DI container
 builder.Services.AddScoped<IArtistaService, ArtistaService>();
 
-// Add the CancionRepository to the DI container
 builder.Services.AddScoped<ICancionRepository>(provider =>
     new CancionRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
-
-// Add the CancionService to the DI container
 builder.Services.AddScoped<ICancionService, CancionService>();
 
-// Add the CancionRepository to the DI container
 builder.Services.AddScoped<IUsuarioRepository>(provider =>
     new UsuarioRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
-
-// Add the CancionService to the DI container
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
-// Add the CancionRepository to the DI container
 builder.Services.AddScoped<IPlaylistRepository>(provider =>
     new PlaylistRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
-
-// Add the CancionService to the DI container
 builder.Services.AddScoped<IPlaylistService, PlaylistService>();
-
-// You can add other services or configurations here
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    // Use Swagger UI for API exploration in Development mode
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Configure middlewares
 app.UseHttpsRedirection();
+
+// Usa la política de CORS antes de la autorización
+app.UseCors("AllowFrontend");
+
 app.UseAuthorization();
 
-// Map controllers
 app.MapControllers();
 
-// Run the application
 app.Run();

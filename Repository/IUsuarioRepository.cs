@@ -12,6 +12,7 @@ namespace MyMusicApp.Repositories
 
         // Obtener un usuario por su ID
         Task<Usuario> GetByIdAsync(int id);
+        
 
         // Agregar un nuevo usuario
         Task AddAsync(Usuario usuario);
@@ -21,5 +22,7 @@ namespace MyMusicApp.Repositories
 
         // Eliminar un usuario
         Task<bool> DeleteAsync(int id);
+        Task<Usuario> GetByCredentialsAsync(string email, string password);
+
     }
 }
