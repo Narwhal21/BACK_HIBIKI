@@ -22,25 +22,14 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
+                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\" FROM \"Cancion\"";
 
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"Nombre\", \"Duracion\", \"Ruta\" FROM \"Cancion\"";
                 using (var command = new NpgsqlCommand(query, connection))
+                using (var reader = await command.ExecuteReaderAsync())
                 {
-                    using (var reader = await command.ExecuteReaderAsync())
+                    while (await reader.ReadAsync())
                     {
-                        while (await reader.ReadAsync())
-                        {
-                            var cancion = new Cancion
-                            {
-                                CancionId = reader.GetInt32(0),
-                                AlbumId = reader.GetInt32(1),
-                                Nombre = reader.GetString(2),
-                                Duracion = reader.GetInt32(3),
-                                Ruta = reader.GetString(4)
-                            };
-
-                            canciones.Add(cancion);
-                        }
+                        canciones.Add(MapCancion(reader));
                     }
                 }
             }
@@ -50,51 +39,59 @@ namespace MyMusicApp.Repositories
 
         public async Task<Cancion> GetByIdAsync(int id)
         {
-            Cancion cancion = null;
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\" FROM \"Cancion\" WHERE \"CancionId\" = @Id";
+
+                using (var command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        return await reader.ReadAsync() ? MapCancion(reader) : null;
+                    }
+                }
+            }
+        }
+
+        public async Task<List<Cancion>> GetCancionesByAlbumIdAsync(int albumId)
+        {
+            var canciones = new List<Cancion>();
 
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
+                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\" FROM \"Cancion\" WHERE \"AlbumId\" = @AlbumId";
 
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"Nombre\", \"Duracion\", \"Ruta\" FROM \"Cancion\" WHERE \"CancionId\" = @Id";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Id", id);
-
+                    command.Parameters.AddWithValue("@AlbumId", albumId);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        if (await reader.ReadAsync())
+                        while (await reader.ReadAsync())
                         {
-                            cancion = new Cancion
-                            {
-                                CancionId = reader.GetInt32(0),
-                                AlbumId = reader.GetInt32(1),
-                                Nombre = reader.GetString(2),
-                                Duracion = reader.GetInt32(3),
-                                Ruta = reader.GetString(4)
-                            };
+                            canciones.Add(MapCancion(reader));
                         }
                     }
                 }
             }
 
-            return cancion;
+            return canciones;
         }
 
         public async Task AddAsync(Cancion cancion)
         {
+            if (cancion == null) throw new ArgumentNullException(nameof(cancion));
+
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
+                string query = "INSERT INTO \"Cancion\" (\"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\") VALUES (@AlbumId, @CantanteId, @Nombre, @Duracion, @Ruta, @Image)";
 
-                string query = "INSERT INTO \"Cancion\" (\"AlbumId\", \"Nombre\", \"Duracion\", \"Ruta\") VALUES (@AlbumId, @Nombre, @Duracion, @Ruta)";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@AlbumId", cancion.AlbumId);
-                    command.Parameters.AddWithValue("@Nombre", cancion.Nombre);
-                    command.Parameters.AddWithValue("@Duracion", cancion.Duracion);
-                    command.Parameters.AddWithValue("@Ruta", cancion.Ruta);
-
+                    SetCancionParameters(command, cancion);
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -102,19 +99,17 @@ namespace MyMusicApp.Repositories
 
         public async Task UpdateAsync(Cancion cancion)
         {
+            if (cancion == null) throw new ArgumentNullException(nameof(cancion));
+
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
+                string query = "UPDATE \"Cancion\" SET \"AlbumId\" = @AlbumId, \"CantanteId\" = @CantanteId, \"Nombre\" = @Nombre, \"Duracion\" = @Duracion, \"Ruta\" = @Ruta, \"Image\" = @Image WHERE \"CancionId\" = @CancionId";
 
-                string query = "UPDATE \"Cancion\" SET \"AlbumId\" = @AlbumId, \"Nombre\" = @Nombre, \"Duracion\" = @Duracion, \"Ruta\" = @Ruta WHERE \"CancionId\" = @CancionId";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
+                    SetCancionParameters(command, cancion);
                     command.Parameters.AddWithValue("@CancionId", cancion.CancionId);
-                    command.Parameters.AddWithValue("@AlbumId", cancion.AlbumId);
-                    command.Parameters.AddWithValue("@Nombre", cancion.Nombre);
-                    command.Parameters.AddWithValue("@Duracion", cancion.Duracion);
-                    command.Parameters.AddWithValue("@Ruta", cancion.Ruta);
-
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -125,16 +120,40 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-
                 string query = "DELETE FROM \"Cancion\" WHERE \"CancionId\" = @Id";
+
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
-
-                    int rowsAffected = await command.ExecuteNonQueryAsync();
-                    return rowsAffected > 0;
+                    return await command.ExecuteNonQueryAsync() > 0;
                 }
             }
+        }
+
+        // 🔹 Método para mapear una canción desde un DataReader
+        private Cancion MapCancion(NpgsqlDataReader reader)
+        {
+            return new Cancion
+            {
+                CancionId = reader.GetInt32(0),
+                AlbumId = reader.GetInt32(1),
+                CantanteId = reader.GetInt32(2),
+                Nombre = reader.GetString(3),
+                Duracion = reader.GetTimeSpan(4), // Asegúrate que en la DB sea TimeSpan
+                Ruta = reader.GetString(5),
+                Image = reader.GetString(6)
+            };
+        }
+
+        // 🔹 Método para establecer los parámetros de una canción en un comando SQL
+        private void SetCancionParameters(NpgsqlCommand command, Cancion cancion)
+        {
+            command.Parameters.AddWithValue("@AlbumId", cancion.AlbumId);
+            command.Parameters.AddWithValue("@CantanteId", cancion.CantanteId);
+            command.Parameters.AddWithValue("@Nombre", cancion.Nombre);
+            command.Parameters.AddWithValue("@Duracion", cancion.Duracion);
+            command.Parameters.AddWithValue("@Ruta", cancion.Ruta);
+            command.Parameters.AddWithValue("@Image", cancion.Image);
         }
     }
 }

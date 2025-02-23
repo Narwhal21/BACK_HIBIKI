@@ -21,5 +21,9 @@ namespace MyMusicApp.Services
 
         // Método para eliminar una canción por su ID
         Task<bool> DeleteAsync(int id);
+
+        // Método para obtener canciones por el ID del álbum
+        Task<List<Cancion>> GetCancionesByAlbumIdAsync(int albumId);
+
     }
 }

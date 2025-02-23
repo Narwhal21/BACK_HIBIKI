@@ -25,6 +25,16 @@ namespace MyMusicApp.Services
             return await _cancionRepository.GetByIdAsync(id);
         }
 
+        public async Task<List<Cancion>> GetCancionesByAlbumIdAsync(int albumId)
+        {
+            if (albumId <= 0)
+                throw new ArgumentException("El ID del álbum debe ser mayor a 0.");
+
+            var canciones = await _cancionRepository.GetCancionesByAlbumIdAsync(albumId);
+
+            return canciones ?? new List<Cancion>(); // Retorna lista vacía si no hay canciones
+        }
+
         public async Task AddAsync(Cancion cancion)
         {
             if (cancion == null)

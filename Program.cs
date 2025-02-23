@@ -21,10 +21,26 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+<<<<<<< HEAD
 var configuration = builder.Configuration;
 var databaseProvider = configuration["DatabaseProvider"] ?? "PostgreSQL";
 
 // Registración de repositorios y servicios
+=======
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
+
+var configuration = builder.Configuration;
+var databaseProvider = configuration["DatabaseProvider"] ?? "PostgreSQL";
+
+// Add repositories and services to the DI container
+>>>>>>> 76863b5df601062e773c5399a6e91b320bb3576a
 builder.Services.AddScoped<IAlbumRepository>(provider =>
     new AlbumRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<IAlbumService, AlbumService>();
@@ -60,6 +76,13 @@ app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 
+<<<<<<< HEAD
+=======
+// Enable CORS
+app.UseCors("AllowAllOrigins");
+
+// Map controllers
+>>>>>>> 76863b5df601062e773c5399a6e91b320bb3576a
 app.MapControllers();
 
 app.Run();

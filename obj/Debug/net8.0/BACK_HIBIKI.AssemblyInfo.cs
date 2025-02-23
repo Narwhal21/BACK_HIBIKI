@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BACK_HIBIKI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3f43b1a93f3fe8c0c82195eb6196087fd48cb6e0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a66e92b351987645250ca81e805a91f286e29f18")]
 [assembly: System.Reflection.AssemblyProductAttribute("BACK_HIBIKI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BACK_HIBIKI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

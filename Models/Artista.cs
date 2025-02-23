@@ -6,13 +6,16 @@ namespace Models
     public string Nombre { get; set; }
     public int OyentesMensuales { get; set; }
     public string Descripcion { get; set; }
+    public string Image { get; set; } = "";
+
 public Artista() { }
 
-        public Artista(string nombre, int oyentesMensuales, string descripcion)
+        public Artista(string nombre, int oyentesMensuales, string descripcion, string image)
         {
             Nombre = nombre;
             OyentesMensuales = oyentesMensuales;
             Descripcion = descripcion;
+            Image = image;
 
             if (string.IsNullOrWhiteSpace(nombre))
             {
