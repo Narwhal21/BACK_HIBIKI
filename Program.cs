@@ -3,86 +3,59 @@ using MyMusicApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Agrega servicios al contenedor.
-builder.Services.AddControllers();
-
-// Configuración de CORS: se crea una política que permite solicitudes desde http://localhost:5173
+// 🔹 Configuración de CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins("http://localhost:5173") // Asegúrate de que es la URL de tu frontend
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials(); // Si usas autenticación con cookies o headers personalizados
     });
 });
 
-// Agrega Swagger para la documentación de la API
+// 🔹 Agregar servicios al contenedor.
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-<<<<<<< HEAD
 var configuration = builder.Configuration;
-var databaseProvider = configuration["DatabaseProvider"] ?? "PostgreSQL";
 
-// Registración de repositorios y servicios
-=======
-// Add CORS policy
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAllOrigins",
-        builder => builder.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader());
-});
-
-var configuration = builder.Configuration;
-var databaseProvider = configuration["DatabaseProvider"] ?? "PostgreSQL";
-
-// Add repositories and services to the DI container
->>>>>>> 76863b5df601062e773c5399a6e91b320bb3576a
+// 🔹 Registración de repositorios y servicios
 builder.Services.AddScoped<IAlbumRepository>(provider =>
-    new AlbumRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
+    new AlbumRepository(configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<IAlbumService, AlbumService>();
 
 builder.Services.AddScoped<IArtistaRepository>(provider =>
-    new ArtistaRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
+    new ArtistaRepository(configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<IArtistaService, ArtistaService>();
 
 builder.Services.AddScoped<ICancionRepository>(provider =>
-    new CancionRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
+    new CancionRepository(configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<ICancionService, CancionService>();
 
 builder.Services.AddScoped<IUsuarioRepository>(provider =>
-    new UsuarioRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
+    new UsuarioRepository(configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 builder.Services.AddScoped<IPlaylistRepository>(provider =>
-    new PlaylistRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
+    new PlaylistRepository(configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<IPlaylistService, PlaylistService>();
 
 var app = builder.Build();
 
+// 🔹 Configurar Swagger solo en desarrollo
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-// Usa la política de CORS antes de la autorización
+// 🔹 Habilitar CORS antes de cualquier otro middleware
 app.UseCors("AllowFrontend");
 
+app.UseHttpsRedirection();
 app.UseAuthorization();
-
-<<<<<<< HEAD
-=======
-// Enable CORS
-app.UseCors("AllowAllOrigins");
-
-// Map controllers
->>>>>>> 76863b5df601062e773c5399a6e91b320bb3576a
 app.MapControllers();
-
 app.Run();

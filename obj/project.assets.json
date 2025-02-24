@@ -2560,16 +2560,11 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
     "C:\\Users\\Sumisa de sylas\\.nuget\\packages\\": {}
-=======
-    "C:\\Users\\dag25\\.nuget\\packages\\": {}
->>>>>>> 76863b5df601062e773c5399a6e91b320bb3576a
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\HibikiB\\BACK_HIBIKI.csproj",
       "projectName": "BACK_HIBIKI",
       "projectPath": "C:\\HibikiB\\BACK_HIBIKI.csproj",
@@ -2578,16 +2573,6 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Sumisa de sylas\\AppData\\Roaming\\NuGet\\NuGet.Config"
-=======
-      "projectUniqueName": "C:\\Users\\dag25\\Desktop\\back\\BACK_HIBIKI.csproj",
-      "projectName": "BACK_HIBIKI",
-      "projectPath": "C:\\Users\\dag25\\Desktop\\back\\BACK_HIBIKI.csproj",
-      "packagesPath": "C:\\Users\\dag25\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dag25\\Desktop\\back\\obj\\",
-      "projectStyle": "PackageReference",
-      "configFilePaths": [
-        "C:\\Users\\dag25\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> 76863b5df601062e773c5399a6e91b320bb3576a
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2677,7 +2662,7 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\dag25\\Desktop\\back\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+      "message": "Problema al leer el archivo de caché C:\\HibikiB\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
     },
     {
       "code": "NU1603",

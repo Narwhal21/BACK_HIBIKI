@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "C:\\HibikiB\\BACK_HIBIKI.csproj": {}
   },
   "projects": {
@@ -16,22 +15,6 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Sumisa de sylas\\AppData\\Roaming\\NuGet\\NuGet.Config"
-=======
-    "C:\\Users\\dag25\\Desktop\\back\\BACK_HIBIKI.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\dag25\\Desktop\\back\\BACK_HIBIKI.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\dag25\\Desktop\\back\\BACK_HIBIKI.csproj",
-        "projectName": "BACK_HIBIKI",
-        "projectPath": "C:\\Users\\dag25\\Desktop\\back\\BACK_HIBIKI.csproj",
-        "packagesPath": "C:\\Users\\dag25\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dag25\\Desktop\\back\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\dag25\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> 76863b5df601062e773c5399a6e91b320bb3576a
         ],
         "originalTargetFrameworks": [
           "net8.0"
