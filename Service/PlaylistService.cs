@@ -30,7 +30,14 @@ namespace MyMusicApp.Services
             if (playlist == null)
                 throw new ArgumentNullException(nameof(playlist));
 
-            // Validación adicional si fuera necesario, por ejemplo, verificar si el nombre ya existe.
+            if (string.IsNullOrWhiteSpace(playlist.Nombre))
+                throw new ArgumentException("El nombre de la playlist no puede estar vacío.");
+
+            if (playlist.CreadorId <= 0 || playlist.UserId <= 0)
+                throw new ArgumentException("CreadorId y UserId deben ser válidos.");
+
+            playlist.FechaCreacion = DateTime.Now; // Se asegura de que la fecha sea válida
+
             await _playlistRepository.AddAsync(playlist);
         }
 
@@ -39,12 +46,20 @@ namespace MyMusicApp.Services
             if (playlist == null)
                 throw new ArgumentNullException(nameof(playlist));
 
-            // Validación adicional si fuera necesario.
+            if (playlist.PlaylistId <= 0)
+                throw new ArgumentException("El ID de la playlist no es válido.");
+
+            if (string.IsNullOrWhiteSpace(playlist.Nombre))
+                throw new ArgumentException("El nombre de la playlist no puede estar vacío.");
+
             await _playlistRepository.UpdateAsync(playlist);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
+            if (id <= 0)
+                throw new ArgumentException("El ID de la playlist no es válido.");
+
             return await _playlistRepository.DeleteAsync(id);
         }
     }

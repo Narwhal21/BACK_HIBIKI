@@ -39,6 +39,9 @@ namespace MyMusicApp.Controllers
         [HttpPost]
         public async Task<ActionResult> AddPlaylistAsync([FromBody] Playlist playlist)
         {
+            if (playlist == null || playlist.CreadorId <= 0 || playlist.UserId <= 0)
+                return BadRequest("Datos de la playlist inválidos.");
+
             try
             {
                 await _playlistService.AddAsync(playlist);
@@ -54,7 +57,9 @@ namespace MyMusicApp.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePlaylistAsync(int id, [FromBody] Playlist playlist)
         {
-            playlist.PlaylistId = id;
+            if (playlist == null || id != playlist.PlaylistId)
+                return BadRequest("Datos inválidos.");
+
             try
             {
                 await _playlistService.UpdateAsync(playlist);
