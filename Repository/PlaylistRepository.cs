@@ -23,7 +23,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "SELECT \"PlaylistId\", \"Nombre\", \"Descripcion\", \"FechaCreacion\", \"CreadorId\" FROM \"Playlist\"";
+                string query = "SELECT \"PlaylistId\", \"Nombre\", \"Descripcion\",\"Image\", \"FechaCreacion\", \"CreadorId\" FROM \"Playlist\"";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     using (var reader = await command.ExecuteReaderAsync())
@@ -35,8 +35,9 @@ namespace MyMusicApp.Repositories
                                 PlaylistId = reader.GetInt32(0),
                                 Nombre = reader.GetString(1),
                                 Descripcion = reader.GetString(2),
-                                FechaCreacion = reader.GetDateTime(3),
-                                Creador = new Usuario { UserId = reader.GetInt32(4) }
+                                Image = reader.GetString(3),
+                                FechaCreacion = reader.GetDateTime(4),
+                                Creador = new Usuario { UserId = reader.GetInt32(5) }
                             };
 
                             playlists.Add(playlist);
@@ -56,7 +57,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "SELECT \"PlaylistId\", \"Nombre\", \"Descripcion\", \"FechaCreacion\", \"CreadorId\" FROM \"Playlist\" WHERE \"PlaylistId\" = @Id";
+                string query = "SELECT \"PlaylistId\", \"Nombre\", \"Descripcion\",\"Image\", \"FechaCreacion\", \"CreadorId\" FROM \"Playlist\" = @Id";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
@@ -70,8 +71,9 @@ namespace MyMusicApp.Repositories
                                 PlaylistId = reader.GetInt32(0),
                                 Nombre = reader.GetString(1),
                                 Descripcion = reader.GetString(2),
-                                FechaCreacion = reader.GetDateTime(3),
-                                Creador = new Usuario { UserId = reader.GetInt32(4) } 
+                                Image = reader.GetString(3),
+                                FechaCreacion = reader.GetDateTime(4),
+                                Creador = new Usuario { UserId = reader.GetInt32(5) } 
                             };
                         }
                     }
@@ -87,11 +89,12 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "INSERT INTO \"Playlist\" (\"Nombre\", \"Descripcion\", \"FechaCreacion\", \"CreadorId\") VALUES (@Nombre, @Descripcion, @FechaCreacion, @CreadorId)";
+                string query = "INSERT INTO \"Playlist\" (\"Nombre\", \"Descripcion\",\"Image\", \"FechaCreacion\", \"CreadorId\") VALUES (@Nombre, @Descripcion, @Image, @FechaCreacion, @CreadorId)";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Nombre", playlist.Nombre);
                     command.Parameters.AddWithValue("@Descripcion", playlist.Descripcion);
+                    command.Parameters.AddWithValue("@Image", playlist.Image);
                     command.Parameters.AddWithValue("@FechaCreacion", playlist.FechaCreacion);
                     command.Parameters.AddWithValue("@CreadorId", playlist.Creador.UserId); 
 
@@ -106,12 +109,13 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "UPDATE \"Playlist\" SET \"Nombre\" = @Nombre, \"Descripcion\" = @Descripcion, \"FechaCreacion\" = @FechaCreacion, \"CreadorId\" = @CreadorId WHERE \"PlaylistId\" = @PlaylistId";
+                string query = "UPDATE \"Playlist\" SET \"Nombre\" = @Nombre, \"Descripcion\" = @Descripcion,\"Image\" = @Image, \"FechaCreacion\" = @FechaCreacion, \"CreadorId\" = @CreadorId WHERE \"PlaylistId\" = @PlaylistId";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@PlaylistId", playlist.PlaylistId);
                     command.Parameters.AddWithValue("@Nombre", playlist.Nombre);
                     command.Parameters.AddWithValue("@Descripcion", playlist.Descripcion);
+                    command.Parameters.AddWithValue("@Image", playlist.Image);
                     command.Parameters.AddWithValue("@FechaCreacion", playlist.FechaCreacion);
                     command.Parameters.AddWithValue("@CreadorId", playlist.Creador.UserId); 
 
