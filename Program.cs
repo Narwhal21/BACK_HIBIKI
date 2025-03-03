@@ -43,6 +43,10 @@ builder.Services.AddScoped<IPlaylistRepository>(provider =>
     new PlaylistRepository(configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<IPlaylistService, PlaylistService>();
 
+builder.Services.AddScoped<IPerfilRepository>(provider => 
+    new PerfilRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
+builder.Services.AddScoped<IPerfilService, PerfilService>();
+
 var app = builder.Build();
 
 // 🔹 Configurar Swagger solo en desarrollo

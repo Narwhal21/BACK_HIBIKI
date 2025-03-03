@@ -1,0 +1,12 @@
+namespace Models
+{
+    public class Cancion
+    {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        // Otras propiedades que pueda tener una canción
+        
+        // Constructor vacío necesario para deserialización
+        public Cancion() {}
+    }
+}
