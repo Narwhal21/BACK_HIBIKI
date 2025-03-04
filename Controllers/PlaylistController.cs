@@ -27,13 +27,26 @@ namespace MyMusicApp.Controllers
 
         // Obtener una playlist por su ID
         [HttpGet("{id}")]
-        public async Task<ActionResult<Playlist>> GetPlaylistByIdAsync(int id)
+public async Task<ActionResult<Playlist>> GetPlaylistByIdAsync(int id)
+{
+    try
+    {
+        var playlist = await _playlistService.GetByIdAsync(id);
+        if (playlist == null)
         {
-            var playlist = await _playlistService.GetByIdAsync(id);
-            if (playlist == null)
-                return NotFound();
-            return Ok(playlist);
+            Console.WriteLine($"Playlist {id} no encontrada.");
+            return NotFound();
         }
+        return Ok(playlist);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error en GetPlaylistByIdAsync({id}): {ex}");
+        return StatusCode(500, "Error interno del servidor.");
+    }
+}
+
+
 
         // Agregar una nueva playlist
         [HttpPost]

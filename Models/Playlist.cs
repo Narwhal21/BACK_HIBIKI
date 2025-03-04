@@ -12,7 +12,6 @@ namespace Models
         
         public int CreadorId { get; set; } // ID del creador de la playlist
         
-        public int CancionId { get; set; } // ID de la canción en la playlist (opcionalmente una lista)
 
         [Required]
         [MaxLength(100)]
@@ -39,7 +38,6 @@ namespace Models
             PlaylistId = playlistId;
             UserId = userId;
             CreadorId = creadorId;
-            CancionId = cancionId;
             Nombre = nombre;
             Descripcion = descripcion;
             Image = image;
