@@ -505,3 +505,4 @@ D:\HibikiB\obj\Debug\net8.0\refint\BACK_HIBIKI.dll
 D:\HibikiB\obj\Debug\net8.0\BACK_HIBIKI.pdb
 D:\HibikiB\obj\Debug\net8.0\BACK_HIBIKI.genruntimeconfig.cache
 D:\HibikiB\obj\Debug\net8.0\ref\BACK_HIBIKI.dll
+C:\Users\Aleja\Desktop\BACK_HIBIKI\bin\Debug\net8.0\package-lock.json

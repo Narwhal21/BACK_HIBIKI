@@ -47,12 +47,6 @@ builder.Services.AddScoped<IPerfilRepository>(provider =>
     new PerfilRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<IPerfilService, PerfilService>();
 
-// 🔹 Configurar puerto de la aplicación (asegurándote de que la aplicación escuche en el puerto adecuado)
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(80);  // Escuchar en el puerto 80 (o puedes usar otro puerto si lo prefieres)
-});
-
 var app = builder.Build();
 
 // 🔹 Configurar Swagger solo en desarrollo

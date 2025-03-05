@@ -2560,31 +2560,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\S2-PC00\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Aleja\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\HibikiB\\BACK_HIBIKI.csproj",
+      "projectUniqueName": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
       "projectName": "BACK_HIBIKI",
-      "projectPath": "D:\\HibikiB\\BACK_HIBIKI.csproj",
-      "packagesPath": "C:\\Users\\S2-PC00\\.nuget\\packages\\",
-      "outputPath": "D:\\HibikiB\\obj\\",
+      "projectPath": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
+      "packagesPath": "C:\\Users\\Aleja\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\S2-PC00\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Aleja\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2660,7 +2653,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
