@@ -1,0 +1,131 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mymusicapp-config
+data:
+  appsettings.json: |
+    {
+      "DatabaseProvider": "PostgreSQL",
+      "ConnectionStrings": {
+        "PostgreSQL": "Host=hibiki3.csj2tjkgkzpf.us-east-1.rds.amazonaws.com;Database=postgres;Username=postgres;Password=Hibiki0110$;TrustServerCertificate=True;"
+      },
+      "Cors": {
+        "AllowedOrigins": ["*"]
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mymusicapp
+  labels:
+    app: mymusicapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mymusicapp
+  template:
+    metadata:
+      labels:
+        app: mymusicapp
+    spec:
+      containers:
+      - name: hibikiback
+        image: alejandroalagon33/sanvalero:hibikiback
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"  # Changed to Development to enable Swagger
+        - name: POSTGRES_PASSWORD
+          value: "Hibiki0110$"  # Hardcoded password instead of using secret
+        - name: CORS_ALLOW_ANY
+          value: "true"
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: mymusicapp-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mymusicapp-service
+spec:
+  selector:
+    app: mymusicapp
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer  # Changed to LoadBalancer for external IP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql
+  labels:
+    app: postgresql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      containers:
+      - name: postgresql
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: "HibikiDB"
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "Hibiki0110$"  # Hardcoded password instead of using secret
+        volumeMounts:
+        - name: postgresql-data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgresql-data
+        persistentVolumeClaim:
+          claimName: postgresql-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-service
+spec:
+  selector:
+    app: postgresql
+  ports:
+  - port: 5432
+    targetPort: 5432
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgresql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: postgresql-pv
