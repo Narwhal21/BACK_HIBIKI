@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Rewrite;
 using MyMusicApp.Repositories;
 using MyMusicApp.Services;
 
@@ -8,10 +9,11 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173") // Asegúrate de que es la URL de tu frontend
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials(); // Si usas autenticación con cookies o headers personalizados
+              .AllowAnyMethod();
+        // Nota: AllowAnyOrigin() es incompatible con AllowCredentials()
+        // Si necesitas cookies/credenciales, deberás especificar orígenes concretos
     });
 });
 
@@ -49,12 +51,13 @@ builder.Services.AddScoped<IPerfilService, PerfilService>();
 
 var app = builder.Build();
 
-// 🔹 Configurar Swagger solo en desarrollo
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// 🔹 Configurar Swagger siempre (no solo en desarrollo)
+app.UseSwagger();
+app.UseSwaggerUI();
+
+// 🔹 Añadir regla de redirección de la raíz a Swagger
+app.UseRewriter(new RewriteOptions()
+    .AddRedirect("^$", "swagger"));
 
 // 🔹 Habilitar CORS antes de cualquier otro middleware
 app.UseCors("AllowFrontend");
@@ -62,4 +65,8 @@ app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
+// 🔹 También añadir endpoint explícito para la raíz que redirige a Swagger
+app.MapGet("/", () => Results.Redirect("/swagger"));
+
 app.Run();
