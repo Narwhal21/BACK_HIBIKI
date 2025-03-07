@@ -26,7 +26,7 @@ WORKDIR /app
 COPY --from=build /app .
 
 # Expone el puerto en el que la aplicación estará disponible
-EXPOSE 80
+EXPOSE 8080
 
 # Establece el comando para iniciar la aplicación
 ENTRYPOINT ["dotnet", "BACK_HIBIKI.dll"]

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: back-app
+  template:
+    metadata:
+      labels:
+        app: back-app
+    spec:
+      containers:
+      - name: back-app
+        image: alejandroalagon33/sanvalero:hibikibackV4 
+        ports:
+        - containerPort: 8080
