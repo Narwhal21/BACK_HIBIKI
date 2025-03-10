@@ -17,7 +17,7 @@ namespace MyMusicApp.Controllers
             _cancionService = cancionService;
         }
 
-        // Obtener todas las canciones
+    
         [HttpGet]
         public async Task<ActionResult<List<Cancion>>> GetAllCancionesAsync()
         {
@@ -31,7 +31,7 @@ namespace MyMusicApp.Controllers
             return Ok(canciones);
         }
 
-        // Obtener una canción por su ID
+ 
         [HttpGet("{id}")]
         public async Task<ActionResult<Cancion>> GetCancionByIdAsync(int id)
         {
@@ -45,7 +45,7 @@ namespace MyMusicApp.Controllers
             return Ok(cancion);
         }
 
-        // Obtener canciones por el ID del álbum
+ 
         [HttpGet("ByAlbum/{albumId}")]
         public async Task<ActionResult<List<Cancion>>> GetCancionesByAlbumIdAsync(int albumId)
         {
@@ -59,7 +59,7 @@ namespace MyMusicApp.Controllers
             return Ok(canciones);
         }
 
-        // Agregar una nueva canción
+
         [HttpPost]
         public async Task<ActionResult> AddCancionAsync([FromBody] Cancion cancion)
         {
@@ -68,7 +68,6 @@ namespace MyMusicApp.Controllers
                 return BadRequest("La canción no puede ser nula.");
             }
 
-            // Agregar más validaciones si es necesario
             if (string.IsNullOrWhiteSpace(cancion.Nombre))
             {
                 return BadRequest("El nombre de la canción es obligatorio.");
@@ -78,7 +77,7 @@ namespace MyMusicApp.Controllers
             return CreatedAtAction(nameof(GetCancionByIdAsync), new { id = cancion.CancionId }, cancion);
         }
 
-        // Actualizar una canción existente
+
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateCancionAsync(int id, [FromBody] Cancion cancion)
         {
@@ -87,7 +86,7 @@ namespace MyMusicApp.Controllers
                 return BadRequest("La canción no puede ser nula.");
             }
 
-            // Asegurarse de que el ID coincide
+
             cancion.CancionId = id;
 
             var existingCancion = await _cancionService.GetByIdAsync(id);
@@ -101,7 +100,7 @@ namespace MyMusicApp.Controllers
             return NoContent();
         }
 
-        // Eliminar una canción
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCancionAsync(int id)
         {

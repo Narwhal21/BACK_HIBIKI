@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: back-app
-        image: alejandroalagon33/sanvalero:hibikibackV4 
+        image: alejandroalagon33/sanvalero:hibikibackV12 
         ports:
         - containerPort: 8080

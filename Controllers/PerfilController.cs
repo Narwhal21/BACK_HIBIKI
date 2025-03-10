@@ -17,7 +17,6 @@ namespace MyMusicApp.Controllers
             _perfilService = perfilService;
         }
 
-        // Obtener todos los perfiles
         [HttpGet]
         public async Task<ActionResult<List<Perfil>>> GetAllPerfilesAsync()
         {
@@ -25,7 +24,6 @@ namespace MyMusicApp.Controllers
             return Ok(perfiles);
         }
 
-        // Obtener un perfil por su nombre
         [HttpGet("{nombre}")]
         public async Task<ActionResult<Perfil>> GetPerfilByNombreAsync(string nombre)
         {
@@ -35,7 +33,6 @@ namespace MyMusicApp.Controllers
             return Ok(perfil);
         }
 
-        // Agregar un nuevo perfil
         [HttpPost]
         public async Task<ActionResult> AddPerfilAsync([FromBody] Perfil perfil)
         {
@@ -43,7 +40,6 @@ namespace MyMusicApp.Controllers
             return CreatedAtAction(nameof(GetPerfilByNombreAsync), new { nombre = perfil.Nombre }, perfil);
         }
 
-        // Actualizar un perfil existente
         [HttpPut("{nombre}")]
         public async Task<ActionResult> UpdatePerfilAsync(string nombre, [FromBody] Perfil perfil)
         {
@@ -58,14 +54,12 @@ namespace MyMusicApp.Controllers
                 return NotFound($"No se encontró un perfil con el nombre {nombre}");
             }
 
-            // Mantener el ID de la base de datos
             perfil.PerfilId = existingPerfil.PerfilId;
             
             await _perfilService.UpdateAsync(perfil);
             return NoContent();
         }
 
-        // Eliminar un perfil
         [HttpDelete("{nombre}")]
         public async Task<ActionResult> DeletePerfilAsync(string nombre)
         {
@@ -75,7 +69,7 @@ namespace MyMusicApp.Controllers
             return NoContent();
         }
 
-        // Inicializar datos de perfiles (si es necesario)
+
         [HttpPost("initialize")]
         public async Task<ActionResult> InitializeDataAsync()
         {

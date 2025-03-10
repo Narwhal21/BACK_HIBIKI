@@ -14,8 +14,7 @@ namespace MyMusicApp.Services
         {
             _usuarioRepository = usuarioRepository;
         }
-
-        // Actualizado para devolver Task<Usuario>
+        
         public async Task<Usuario> LoginAsync(string email, string password)
         {
             return await _usuarioRepository.GetByCredentialsAsync(email, password);

@@ -6,33 +6,26 @@ namespace Models
 {
     public class Playlist
     {
-        public int PlaylistId { get; set; } // ID de la playlist
+        public int PlaylistId { get; set; } 
         
-        public int UserId { get; set; } // ID del usuario propietario de la playlist
+        public int UserId { get; set; } 
         
-        public int CreadorId { get; set; } // ID del creador de la playlist
+        public int CreadorId { get; set; } 
         
 
         [Required]
         [MaxLength(100)]
-        public string Nombre { get; set; } = string.Empty; // Nombre de la playlist
-
+        public string Nombre { get; set; } = string.Empty; 
         public string Image { get; set; } = "";
-        
         [MaxLength(100)]
-        public string Descripcion { get; set; } = string.Empty; // Descripción de la playlist
-        
-        public DateTime FechaCreacion { get; set; } = DateTime.Now; // Fecha de creación con valor predeterminado
-
-        // Relaciones
+        public string Descripcion { get; set; } = string.Empty; 
+        public DateTime FechaCreacion { get; set; } = DateTime.Now; 
         public List<Cancion> Canciones { get; set; } = new List<Cancion>();
         public Usuario Creador { get; set; }
 
-        // Constructor sin parámetros
         public Playlist() {}
 
 
-        // Constructor con parámetros
         public Playlist(int playlistId, int userId, int creadorId, int cancionId, string nombre, string descripcion,string image, DateTime fechaCreacion, Usuario creador)
         {
             PlaylistId = playlistId;

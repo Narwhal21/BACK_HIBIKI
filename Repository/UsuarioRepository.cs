@@ -22,7 +22,6 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // Consulta actualizada para usar "fecha_registro" en minúsculas
                 string query = "SELECT \"UserId\", \"Name\", \"Email\", \"Password\", \"IsPremium\", \"fecha_registro\" FROM \"Usuario\"";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -37,7 +36,6 @@ namespace MyMusicApp.Repositories
                                 Email = reader.GetString(2),
                                 Password = reader.GetString(3),
                                 IsPremium = reader.GetBoolean(4),
-                                // Se lee la fecha de registro desde "fecha_registro"
                                 Fecha_Registro = reader.GetDateTime(5)
                             };
                             usuarios.Add(usuario);
@@ -54,7 +52,6 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // Consulta actualizada para usar "fecha_registro" en minúsculas
                 string query = "SELECT \"UserId\", \"Name\", \"Email\", \"Password\", \"IsPremium\", \"fecha_registro\" FROM \"Usuario\" WHERE \"UserId\" = @Id";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -70,7 +67,6 @@ namespace MyMusicApp.Repositories
                                 Email = reader.GetString(2),
                                 Password = reader.GetString(3),
                                 IsPremium = reader.GetBoolean(4),
-                                // Se lee la fecha de registro desde "fecha_registro"
                                 Fecha_Registro = reader.GetDateTime(5)
                             };
                         }
@@ -80,7 +76,6 @@ namespace MyMusicApp.Repositories
             return usuario;
         }
 
-        // Método agregado para obtener un usuario por email y contraseña
         public async Task<Usuario> GetByCredentialsAsync(string email, string password)
         {
             Usuario usuario = null;
@@ -119,7 +114,6 @@ namespace MyMusicApp.Repositories
     {
         await connection.OpenAsync();
         
-        // Si no se pasa una fecha desde el frontend, usamos la fecha actual.
         if (usuario.Fecha_Registro == DateTime.MinValue)
         {
             usuario.Fecha_Registro = DateTime.UtcNow;
@@ -154,7 +148,6 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // Actualización sin modificar "fecha_registro"
                 string query = "UPDATE \"Usuario\" SET \"Name\" = @Name, \"Email\" = @Email, \"Password\" = @Password, \"IsPremium\" = @IsPremium WHERE \"UserId\" = @UserId";
                 using (var command = new NpgsqlCommand(query, connection))
                 {

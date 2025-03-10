@@ -17,7 +17,7 @@ namespace MyMusicApp.Controllers
             _playlistService = playlistService;
         }
 
-        // Obtener todas las playlists
+        
         [HttpGet]
         public async Task<ActionResult<List<Playlist>>> GetAllPlaylistsAsync()
         {
@@ -25,7 +25,7 @@ namespace MyMusicApp.Controllers
             return Ok(playlists);
         }
 
-        // Obtener una playlist por su ID
+        
         [HttpGet("{id}")]
 public async Task<ActionResult<Playlist>> GetPlaylistByIdAsync(int id)
 {
@@ -48,7 +48,7 @@ public async Task<ActionResult<Playlist>> GetPlaylistByIdAsync(int id)
 
 
 
-        // Agregar una nueva playlist
+        
         [HttpPost]
         public async Task<ActionResult> AddPlaylistAsync([FromBody] Playlist playlist)
         {
@@ -66,7 +66,7 @@ public async Task<ActionResult<Playlist>> GetPlaylistByIdAsync(int id)
             }
         }
 
-        // Actualizar una playlist existente
+        
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePlaylistAsync(int id, [FromBody] Playlist playlist)
         {
@@ -84,7 +84,7 @@ public async Task<ActionResult<Playlist>> GetPlaylistByIdAsync(int id)
             }
         }
 
-        // Eliminar una playlist
+      
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePlaylistAsync(int id)
         {

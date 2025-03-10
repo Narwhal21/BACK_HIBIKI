@@ -17,7 +17,7 @@ namespace MyMusicApp.Controllers
             _usuarioService = usuarioService;
         }
 
-        // Obtener todos los usuarios
+       
         [HttpGet]
         public async Task<ActionResult<List<Usuario>>> GetAllUsuariosAsync()
         {
@@ -36,7 +36,7 @@ namespace MyMusicApp.Controllers
 
 
 
-        // Obtener un usuario por su ID
+     
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuarioByIdAsync(int id)
         {
@@ -46,7 +46,7 @@ namespace MyMusicApp.Controllers
             return Ok(usuario);
         }
 
-        // Agregar un nuevo usuario
+    
         [HttpPost]
         public async Task<ActionResult> AddUsuarioAsync([FromBody] Usuario usuario)
         {
@@ -61,7 +61,7 @@ namespace MyMusicApp.Controllers
 
                 Console.WriteLine($"Usuario registrado con ID: {usuario.UserId}");
 
-                return Ok(usuario); // Cambia de CreatedAtAction a Ok
+                return Ok(usuario); 
             }
             catch (Exception ex)
             {
@@ -69,7 +69,7 @@ namespace MyMusicApp.Controllers
                 return StatusCode(500, $"Error interno en el servidor: {ex.Message}");
             }
         }
-        // Actualizar un usuario existente
+        
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateUsuarioAsync(int id, [FromBody] Usuario usuario)
         {
@@ -78,7 +78,7 @@ namespace MyMusicApp.Controllers
             return NoContent();
         }
 
-        // Eliminar un usuario
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUsuarioAsync(int id)
         {

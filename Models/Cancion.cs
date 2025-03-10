@@ -29,7 +29,6 @@ namespace Models
 
         public void MostrarDetalles() 
         {
-            // Implementación del método MostrarDetalles
         }
     }
 }

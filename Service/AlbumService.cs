@@ -17,12 +17,12 @@ namespace MyMusicApp.Services
 
         public async Task<List<Album>> GetAllAsync()
         {
-            return await _albumRepository.GetAllAsync();  // Llamada al repositorio para obtener todos los álbumes
+            return await _albumRepository.GetAllAsync();  
         }
 
         public async Task<Album> GetByIdAsync(int id)
         {
-            return await _albumRepository.GetByIdAsync(id);  // Llamada al repositorio para obtener un álbum por su ID
+            return await _albumRepository.GetByIdAsync(id);  
         }
 
         public async Task AddAsync(Album album)
@@ -30,7 +30,7 @@ namespace MyMusicApp.Services
             if (album == null)
                 throw new ArgumentNullException(nameof(album));
 
-            await _albumRepository.AddAsync(album);  // Llamada al repositorio para agregar un nuevo álbum
+            await _albumRepository.AddAsync(album);  
         }
 
         public async Task UpdateAsync(Album album)
@@ -38,23 +38,23 @@ namespace MyMusicApp.Services
             if (album == null)
                 throw new ArgumentNullException(nameof(album));
 
-            await _albumRepository.UpdateAsync(album);  // Llamada al repositorio para actualizar un álbum
+            await _albumRepository.UpdateAsync(album);  
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            return await _albumRepository.DeleteAsync(id);  // Llamada al repositorio para eliminar un álbum
+            return await _albumRepository.DeleteAsync(id);  
         }
 
         public async Task InitializeDataAsync()
         {
-            await _albumRepository.InitializeDataAsync();  // Llamada al repositorio para inicializar los datos
+            await _albumRepository.InitializeDataAsync();  
         }
 
-        // Nuevo método para obtener los álbumes por el ID del artista
+       
         public async Task<List<Album>> GetAlbumsByArtistIdAsync(int artistId)
         {
-            return await _albumRepository.GetAlbumsByArtistIdAsync(artistId);  // Llamada al repositorio para obtener los álbumes por artistId
+            return await _albumRepository.GetAlbumsByArtistIdAsync(artistId);  
         }
     }
 }

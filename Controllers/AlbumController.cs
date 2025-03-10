@@ -17,7 +17,7 @@ namespace MyMusicApp.Controllers
             _albumService = albumService;
         }
 
-        // Obtener todos los álbumes
+
         [HttpGet]
         public async Task<ActionResult<List<Album>>> GetAllAlbumsAsync()
         {
@@ -25,7 +25,7 @@ namespace MyMusicApp.Controllers
             return Ok(albums);
         }
 
-        // Obtener un álbum por su ID
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Album>> GetAlbumByIdAsync(int id)
         {
@@ -35,19 +35,19 @@ namespace MyMusicApp.Controllers
             return Ok(album);
         }
 
-        // Obtener álbumes por el ID del artista
+
         [HttpGet("ByArtist/{artistId}")]
         public async Task<ActionResult<List<Album>>> GetAlbumsByArtistIdAsync(int artistId)
         {
-            var albums = await _albumService.GetAlbumsByArtistIdAsync(artistId);  // Llamada al servicio
+            var albums = await _albumService.GetAlbumsByArtistIdAsync(artistId);  
             if (albums == null || albums.Count == 0)
             {
                 return NotFound("No se encontraron álbumes para este artista");
             }
-            return Ok(albums); // Devuelve la lista de álbumes del artista
+            return Ok(albums); 
         }
 
-        // Agregar un nuevo álbum
+
         [HttpPost]
         public async Task<ActionResult> AddAlbumAsync([FromBody] Album album)
         {
@@ -55,7 +55,7 @@ namespace MyMusicApp.Controllers
             return CreatedAtAction(nameof(GetAlbumByIdAsync), new { id = album.AlbumId }, album);
         }
 
-        // Actualizar un álbum existente
+     
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateAlbumAsync(int id, [FromBody] Album album)
         {
@@ -64,7 +64,7 @@ namespace MyMusicApp.Controllers
             return NoContent();
         }
 
-        // Eliminar un álbum
+ 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteAlbumAsync(int id)
         {
@@ -74,7 +74,7 @@ namespace MyMusicApp.Controllers
             return NoContent();
         }
 
-        // Inicializar datos de álbumes (opcional)
+
         [HttpPost("initialize")]
         public async Task<ActionResult> InitializeDataAsync()
         {

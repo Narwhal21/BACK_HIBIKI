@@ -33,7 +33,7 @@ namespace MyMusicApp.Repositories
                         {
                             var perfil = new Perfil();
                             
-                            // Extraer datos básicos
+                    
                             perfil.PerfilId = reader.GetInt32(0);
                             perfil.UserId = reader.GetInt32(1);
                             perfil.Nombre = reader.GetString(2);
@@ -41,14 +41,14 @@ namespace MyMusicApp.Repositories
                             perfil.FechaCreacion = reader.GetDateTime(4);
                             perfil.UltimaActualizacion = reader.GetDateTime(5);
 
-                            // Convertir los campos JSON a listas (si la columna es NULL se toma como lista vacía)
+                     
                             string artistasJson = reader.IsDBNull(6) ? "[]" : reader.GetString(6);
                             string cancionesJson = reader.IsDBNull(7) ? "[]" : reader.GetString(7);
 
                             perfil.ArtistasMasEscuchados = JsonSerializer.Deserialize<List<Artista>>(artistasJson);
                             perfil.CancionesMasEscuchadas = JsonSerializer.Deserialize<List<Cancion>>(cancionesJson);
 
-                            // IDs relacionados
+              
                             perfil.CantanteId = reader.IsDBNull(8) ? null : (int?)reader.GetInt32(8);
                             perfil.CancionId = reader.IsDBNull(9) ? null : (int?)reader.GetInt32(9);
                             perfil.PlaylistId = reader.IsDBNull(10) ? null : (int?)reader.GetInt32(10);
@@ -125,7 +125,6 @@ namespace MyMusicApp.Repositories
                     command.Parameters.AddWithValue("@FechaCreacion", perfil.FechaCreacion);
                     command.Parameters.AddWithValue("@UltimaActualizacion", perfil.UltimaActualizacion);
                     
-                    // Convertir las listas a JSON
                     string artistasJson = JsonSerializer.Serialize(perfil.ArtistasMasEscuchados);
                     string cancionesJson = JsonSerializer.Serialize(perfil.CancionesMasEscuchadas);
                     command.Parameters.AddWithValue("@ArtistasMasEscuchados", artistasJson);
@@ -135,7 +134,6 @@ namespace MyMusicApp.Repositories
                     command.Parameters.AddWithValue("@CancionId", perfil.CancionId.HasValue ? (object)perfil.CancionId.Value : DBNull.Value);
                     command.Parameters.AddWithValue("@PlaylistId", perfil.PlaylistId.HasValue ? (object)perfil.PlaylistId.Value : DBNull.Value);
 
-                    // Obtener el ID generado
                     var perfilId = (int)await command.ExecuteScalarAsync();
                     perfil.PerfilId = perfilId;
                 }
@@ -218,8 +216,8 @@ namespace MyMusicApp.Repositories
                 {
                     DateTime now = DateTime.Now;
                     
-                    // Perfil 1
-                    command.Parameters.AddWithValue("@UserId1", 1); // Valor de ejemplo
+              
+                    command.Parameters.AddWithValue("@UserId1", 1); 
                     command.Parameters.AddWithValue("@Nombre1", "Perfil1");
                     command.Parameters.AddWithValue("@Imagen1", DBNull.Value);
                     command.Parameters.AddWithValue("@FechaCreacion1", now);
@@ -227,8 +225,8 @@ namespace MyMusicApp.Repositories
                     command.Parameters.AddWithValue("@Artistas1", "[]");
                     command.Parameters.AddWithValue("@Canciones1", "[]");
 
-                    // Perfil 2
-                    command.Parameters.AddWithValue("@UserId2", 2); // Valor de ejemplo
+              
+                    command.Parameters.AddWithValue("@UserId2", 2); 
                     command.Parameters.AddWithValue("@Nombre2", "Perfil2");
                     command.Parameters.AddWithValue("@Imagen2", DBNull.Value);
                     command.Parameters.AddWithValue("@FechaCreacion2", now);
