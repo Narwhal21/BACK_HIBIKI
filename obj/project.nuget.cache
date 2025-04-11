@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "M0r5iBCgZtk=",
+  "dgSpecHash": "+Ug8mRR3y5A=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
+  "projectFilePath": "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Aleja\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Aleja\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
@@ -57,7 +57,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "BACK_HIBIKI depende de System.Formats.Asn1 (>= 5.0.1), pero no se encontró System.Formats.Asn1 5.0.1. Se resolvió una mejor coincidencia aproximada de System.Formats.Asn1 6.0.0.",
+      "message": "BACK_HIBIKI depends on System.Formats.Asn1 (>= 5.0.1) but System.Formats.Asn1 5.0.1 was not found. An approximate best match of System.Formats.Asn1 6.0.0 was resolved.",
       "libraryId": "System.Formats.Asn1",
       "targetGraphs": [
         "net8.0"
@@ -67,7 +67,7 @@
       "code": "NU1902",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "El paquete \"Azure.Identity\" 1.10.3 tiene una vulnerabilidad de gravedad moderada conocida, https://github.com/advisories/GHSA-m5vv-6r4h-3vj9",
+      "message": "Package 'Azure.Identity' 1.10.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-m5vv-6r4h-3vj9",
       "libraryId": "Azure.Identity",
       "targetGraphs": [
         "net8.0"
@@ -77,7 +77,7 @@
       "code": "NU1902",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "El paquete \"Azure.Identity\" 1.10.3 tiene una vulnerabilidad de gravedad moderada conocida, https://github.com/advisories/GHSA-wvxc-855f-jvrv",
+      "message": "Package 'Azure.Identity' 1.10.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-wvxc-855f-jvrv",
       "libraryId": "Azure.Identity",
       "targetGraphs": [
         "net8.0"
@@ -87,7 +87,7 @@
       "code": "NU1903",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "El paquete \"System.Formats.Asn1\" 6.0.0 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-447r-wph3-92pm",
+      "message": "Package 'System.Formats.Asn1' 6.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-447r-wph3-92pm",
       "libraryId": "System.Formats.Asn1",
       "targetGraphs": [
         "net8.0"

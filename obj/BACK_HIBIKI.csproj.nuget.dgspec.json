@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\BACK_HIBIKI.csproj": {}
+    "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\BACK_HIBIKI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\BACK_HIBIKI.csproj": {
+    "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\BACK_HIBIKI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
+        "projectUniqueName": "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
         "projectName": "BACK_HIBIKI",
-        "projectPath": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
+        "projectPath": "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
         "packagesPath": "C:\\Users\\Aleja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\obj\\",
+        "outputPath": "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Aleja\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -49,6 +49,10 @@ builder.Services.AddScoped<IPerfilRepository>(provider =>
     new PerfilRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<IPerfilService, PerfilService>();
 
+builder.Services.AddScoped<ITemaRepository>(provider => 
+    new TemaRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
+builder.Services.AddScoped<ITemaService, TemaService>();
+
 var app = builder.Build();
 
 // 🔹 Configurar Swagger siempre (no solo en desarrollo)

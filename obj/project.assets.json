@@ -2565,11 +2565,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
+      "projectUniqueName": "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
       "projectName": "BACK_HIBIKI",
-      "projectPath": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
+      "projectPath": "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
       "packagesPath": "C:\\Users\\Aleja\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Aleja\\Desktop\\BACK_HIBIKI\\obj\\",
+      "outputPath": "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Aleja\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -2662,7 +2662,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "BACK_HIBIKI depende de System.Formats.Asn1 (>= 5.0.1), pero no se encontró System.Formats.Asn1 5.0.1. Se resolvió una mejor coincidencia aproximada de System.Formats.Asn1 6.0.0.",
+      "message": "BACK_HIBIKI depends on System.Formats.Asn1 (>= 5.0.1) but System.Formats.Asn1 5.0.1 was not found. An approximate best match of System.Formats.Asn1 6.0.0 was resolved.",
       "libraryId": "System.Formats.Asn1",
       "targetGraphs": [
         "net8.0"
@@ -2672,7 +2672,7 @@
       "code": "NU1902",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "El paquete \"Azure.Identity\" 1.10.3 tiene una vulnerabilidad de gravedad moderada conocida, https://github.com/advisories/GHSA-m5vv-6r4h-3vj9",
+      "message": "Package 'Azure.Identity' 1.10.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-m5vv-6r4h-3vj9",
       "libraryId": "Azure.Identity",
       "targetGraphs": [
         "net8.0"
@@ -2682,7 +2682,7 @@
       "code": "NU1902",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "El paquete \"Azure.Identity\" 1.10.3 tiene una vulnerabilidad de gravedad moderada conocida, https://github.com/advisories/GHSA-wvxc-855f-jvrv",
+      "message": "Package 'Azure.Identity' 1.10.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-wvxc-855f-jvrv",
       "libraryId": "Azure.Identity",
       "targetGraphs": [
         "net8.0"
@@ -2692,7 +2692,7 @@
       "code": "NU1903",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "El paquete \"System.Formats.Asn1\" 6.0.0 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-447r-wph3-92pm",
+      "message": "Package 'System.Formats.Asn1' 6.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-447r-wph3-92pm",
       "libraryId": "System.Formats.Asn1",
       "targetGraphs": [
         "net8.0"
