@@ -46,12 +46,17 @@ builder.Services.AddScoped<IPlaylistRepository>(provider =>
 builder.Services.AddScoped<IPlaylistService, PlaylistService>();
 
 builder.Services.AddScoped<IPerfilRepository>(provider => 
-    new PerfilRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
+    new PerfilRepository(configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<IPerfilService, PerfilService>();
 
 builder.Services.AddScoped<ITemaRepository>(provider => 
-    new TemaRepository(builder.Configuration.GetConnectionString("PostgreSQL")));
+    new TemaRepository(configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<ITemaService, TemaService>();
+
+// 🔹 Registración de ConcertRepository y ConcertService
+builder.Services.AddScoped<IConcertRepository>(provider =>
+    new ConcertRepository(configuration.GetConnectionString("PostgreSQL")));
+builder.Services.AddScoped<IConcertService, ConcertService>();
 
 var app = builder.Build();
 
