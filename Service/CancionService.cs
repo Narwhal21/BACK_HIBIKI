@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyMusicApp.Repositories;
 using System;
+using System.Linq;
 
 namespace MyMusicApp.Services
 {
@@ -33,6 +34,24 @@ namespace MyMusicApp.Services
             var canciones = await _cancionRepository.GetCancionesByAlbumIdAsync(albumId);
 
             return canciones ?? new List<Cancion>(); // Retorna lista vacía si no hay canciones
+        }
+
+        // NUEVO: Método para obtener canciones por cantante
+        public async Task<List<Cancion>> GetCancionesByCantanteIdAsync(int cantanteId)
+        {
+            if (cantanteId <= 0)
+                throw new ArgumentException("El ID del cantante debe ser mayor a 0.");
+
+            var canciones = await _cancionRepository.GetCancionesByCantanteIdAsync(cantanteId);
+
+            return canciones ?? new List<Cancion>(); // Retorna lista vacía si no hay canciones
+        }
+
+        // NUEVO: Método para obtener solo canciones con video
+        public async Task<List<Cancion>> GetCancionesWithVideoAsync()
+        {
+            var todasLasCanciones = await _cancionRepository.GetAllAsync();
+            return todasLasCanciones.Where(c => !string.IsNullOrEmpty(c.VideoUrl)).ToList();
         }
 
         public async Task AddAsync(Cancion cancion)

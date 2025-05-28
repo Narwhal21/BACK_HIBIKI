@@ -17,7 +17,6 @@ namespace MyMusicApp.Controllers
             _cancionService = cancionService;
         }
 
-    
         [HttpGet]
         public async Task<ActionResult<List<Cancion>>> GetAllCancionesAsync()
         {
@@ -31,7 +30,6 @@ namespace MyMusicApp.Controllers
             return Ok(canciones);
         }
 
- 
         [HttpGet("{id}")]
         public async Task<ActionResult<Cancion>> GetCancionByIdAsync(int id)
         {
@@ -45,7 +43,6 @@ namespace MyMusicApp.Controllers
             return Ok(cancion);
         }
 
- 
         [HttpGet("ByAlbum/{albumId}")]
         public async Task<ActionResult<List<Cancion>>> GetCancionesByAlbumIdAsync(int albumId)
         {
@@ -59,6 +56,33 @@ namespace MyMusicApp.Controllers
             return Ok(canciones);
         }
 
+        // NUEVO: Endpoint para obtener canciones por cantante
+        [HttpGet("ByCantante/{cantanteId}")]
+        public async Task<ActionResult<List<Cancion>>> GetCancionesByCantanteIdAsync(int cantanteId)
+        {
+            var canciones = await _cancionService.GetCancionesByCantanteIdAsync(cantanteId);
+
+            if (canciones == null || canciones.Count == 0)
+            {
+                return NotFound($"No se encontraron canciones para el cantante con ID {cantanteId}.");
+            }
+
+            return Ok(canciones);
+        }
+
+        // NUEVO: Endpoint para obtener solo canciones con video
+        [HttpGet("WithVideo")]
+        public async Task<ActionResult<List<Cancion>>> GetCancionesWithVideoAsync()
+        {
+            var canciones = await _cancionService.GetCancionesWithVideoAsync();
+
+            if (canciones == null || canciones.Count == 0)
+            {
+                return NotFound("No se encontraron canciones con videoclip.");
+            }
+
+            return Ok(canciones);
+        }
 
         [HttpPost]
         public async Task<ActionResult> AddCancionAsync([FromBody] Cancion cancion)
@@ -77,7 +101,6 @@ namespace MyMusicApp.Controllers
             return CreatedAtAction(nameof(GetCancionByIdAsync), new { id = cancion.CancionId }, cancion);
         }
 
-
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateCancionAsync(int id, [FromBody] Cancion cancion)
         {
@@ -85,7 +108,6 @@ namespace MyMusicApp.Controllers
             {
                 return BadRequest("La canción no puede ser nula.");
             }
-
 
             cancion.CancionId = id;
 
@@ -99,7 +121,6 @@ namespace MyMusicApp.Controllers
             await _cancionService.UpdateAsync(cancion);
             return NoContent();
         }
-
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCancionAsync(int id)
