@@ -23,7 +23,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
                 // CORREGIDO: videoURL con mayúsculas
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\" FROM \"Cancion\"";
+                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Letra\", \"Videoclip\" FROM \"Cancion\"";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 using (var reader = await command.ExecuteReaderAsync())
@@ -44,7 +44,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
                 // CORREGIDO: videoURL con mayúsculas
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\" FROM \"Cancion\" WHERE \"CancionId\" = @Id";
+                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Letra\", \"Videoclip\" FROM \"Cancion\" WHERE \"CancionId\" = @Id";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -65,7 +65,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
                 // CORREGIDO: videoURL con mayúsculas
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\" FROM \"Cancion\" WHERE \"AlbumId\" = @AlbumId";
+                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Letra\", \"Videoclip\" FROM \"Cancion\" WHERE \"AlbumId\" = @AlbumId";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -92,7 +92,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
                 // CORREGIDO: videoURL con mayúsculas
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\" FROM \"Cancion\" WHERE \"CantanteId\" = @CantanteId";
+                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Letra\", \"Videoclip\" FROM \"Cancion\" WHERE \"CantanteId\" = @CantanteId";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -118,7 +118,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
                 // CORREGIDO: videoURL con mayúsculas
-                string query = "INSERT INTO \"Cancion\" (\"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\") VALUES (@AlbumId, @CantanteId, @Nombre, @Duracion, @Ruta, @Image, @VideoUrl)";
+                string query = "INSERT INTO \"Cancion\" (\"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Letra\", \"Videoclip\") VALUES (@AlbumId, @CantanteId, @Nombre, @Duracion, @Ruta, @Image, @VideoUrl, @Letra, @Videoclip)";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -136,7 +136,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
                 // CORREGIDO: videoURL con mayúsculas
-                string query = "UPDATE \"Cancion\" SET \"AlbumId\" = @AlbumId, \"CantanteId\" = @CantanteId, \"Nombre\" = @Nombre, \"Duracion\" = @Duracion, \"Ruta\" = @Ruta, \"Image\" = @Image, \"videoURL\" = @VideoUrl WHERE \"CancionId\" = @CancionId";
+                string query = "UPDATE \"Cancion\" SET \"AlbumId\" = @AlbumId, \"CantanteId\" = @CantanteId, \"Nombre\" = @Nombre, \"Duracion\" = @Duracion, \"Ruta\" = @Ruta, \"Image\" = @Image, \"videoURL\" = @VideoUrl, \"Letra\", = @Letra, \"Videoclip\" = @Videoclip WHERE \"CancionId\" = @CancionId";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -174,7 +174,9 @@ namespace MyMusicApp.Repositories
                 Duracion = reader.GetTimeSpan(4),
                 Ruta = reader.GetString(5),
                 Image = reader.GetString(6),
-                VideoUrl = reader.IsDBNull(7) ? null : reader.GetString(7) // Leer videoURL de DB
+                VideoUrl = reader.IsDBNull(7) ? null : reader.GetString(7), // Leer videoURL de DB
+                Letra = reader.GetString(8),
+                Videoclip = reader.GetString(9)
             };
         }
 
@@ -189,6 +191,8 @@ namespace MyMusicApp.Repositories
             command.Parameters.AddWithValue("@Image", cancion.Image);
             // Nota: el parámetro se llama @VideoUrl pero se mapea a la columna "videoURL"
             command.Parameters.AddWithValue("@VideoUrl", cancion.VideoUrl ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@Letra", cancion.Letra);
+            command.Parameters.AddWithValue("@Videoclip", cancion.Videoclip);
         }
     }
 }

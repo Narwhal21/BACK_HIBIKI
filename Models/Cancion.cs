@@ -11,9 +11,14 @@ namespace Models
         public string Image { get; set; } = "";
         public string? VideoUrl { get; set; } = null; // NUEVO: Campo para videoclip
 
-        public Cancion() {}
+        public string Letra { get; set; } = "";
 
-        public Cancion(int albumId, int cantanteid, string nombre, TimeSpan duracion, string ruta, string image, string? videoUrl = null)
+        public string Videoclip { get; set; } = "";
+        
+
+        public Cancion() { }
+
+        public Cancion(int albumId, int cantanteid, string nombre, TimeSpan duracion, string ruta, string image, string letra, string videoclip, string? videoUrl = null)
         {
             AlbumId = albumId;
             CantanteId = cantanteid;
@@ -22,6 +27,8 @@ namespace Models
             Ruta = ruta;
             Image = image;
             VideoUrl = videoUrl; // NUEVO: Asignar videoUrl
+            Letra = letra;
+            Videoclip = videoclip;
 
             if (string.IsNullOrWhiteSpace(nombre))
             {
