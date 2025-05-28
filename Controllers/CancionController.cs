@@ -70,7 +70,9 @@ namespace MyMusicApp.Controllers
             return Ok(canciones);
         }
 
-        // NUEVO: Endpoint para obtener solo canciones con video
+        // ENDPOINTS DE VIDEO ACTUALIZADOS Y NUEVOS
+
+        // ACTUALIZADO: Endpoint para obtener canciones con video MP4 (para reproductor)
         [HttpGet("WithVideo")]
         public async Task<ActionResult<List<Cancion>>> GetCancionesWithVideoAsync()
         {
@@ -78,10 +80,60 @@ namespace MyMusicApp.Controllers
 
             if (canciones == null || canciones.Count == 0)
             {
-                return NotFound("No se encontraron canciones con videoclip.");
+                return NotFound("No se encontraron canciones con video MP4.");
             }
 
             return Ok(canciones);
+        }
+
+        // NUEVO: Endpoint para obtener canciones con videoclip de YouTube
+        [HttpGet("WithYouTube")]
+        public async Task<ActionResult<List<Cancion>>> GetCancionesWithYouTubeAsync()
+        {
+            var canciones = await _cancionService.GetCancionesWithYouTubeAsync();
+
+            if (canciones == null || canciones.Count == 0)
+            {
+                return NotFound("No se encontraron canciones con videoclip de YouTube.");
+            }
+
+            return Ok(canciones);
+        }
+
+        // NUEVO: Endpoint para obtener canciones con cualquier tipo de video
+        [HttpGet("WithAnyVideo")]
+        public async Task<ActionResult<List<Cancion>>> GetCancionesWithAnyVideoAsync()
+        {
+            var canciones = await _cancionService.GetCancionesWithAnyVideoAsync();
+
+            if (canciones == null || canciones.Count == 0)
+            {
+                return NotFound("No se encontraron canciones con video.");
+            }
+
+            return Ok(canciones);
+        }
+
+        // NUEVO: Endpoint para obtener canciones con ambos tipos de video
+        [HttpGet("WithBothVideos")]
+        public async Task<ActionResult<List<Cancion>>> GetCancionesWithBothVideosAsync()
+        {
+            var canciones = await _cancionService.GetCancionesWithBothVideosAsync();
+
+            if (canciones == null || canciones.Count == 0)
+            {
+                return NotFound("No se encontraron canciones con ambos tipos de video.");
+            }
+
+            return Ok(canciones);
+        }
+
+        // NUEVO: Endpoint para obtener estadísticas de videos
+        [HttpGet("VideoStats")]
+        public async Task<ActionResult<VideoStats>> GetVideoStatsAsync()
+        {
+            var stats = await _cancionService.GetVideoStatsAsync();
+            return Ok(stats);
         }
 
         [HttpPost]

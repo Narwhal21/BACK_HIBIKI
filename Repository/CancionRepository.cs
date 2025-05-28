@@ -22,8 +22,8 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // CORREGIDO: videoURL con mayúsculas
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\" FROM \"Cancion\"";
+                // Añadido campo Videoclip para YouTube
+                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Videoclip\" FROM \"Cancion\"";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 using (var reader = await command.ExecuteReaderAsync())
@@ -43,8 +43,8 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // CORREGIDO: videoURL con mayúsculas
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\" FROM \"Cancion\" WHERE \"CancionId\" = @Id";
+                // Añadido campo Videoclip para YouTube
+                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Videoclip\" FROM \"Cancion\" WHERE \"CancionId\" = @Id";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -64,8 +64,8 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // CORREGIDO: videoURL con mayúsculas
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\" FROM \"Cancion\" WHERE \"AlbumId\" = @AlbumId";
+                // Añadido campo Videoclip para YouTube
+                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Videoclip\" FROM \"Cancion\" WHERE \"AlbumId\" = @AlbumId";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -91,8 +91,8 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // CORREGIDO: videoURL con mayúsculas
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\" FROM \"Cancion\" WHERE \"CantanteId\" = @CantanteId";
+                // Añadido campo Videoclip para YouTube
+                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Videoclip\" FROM \"Cancion\" WHERE \"CantanteId\" = @CantanteId";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -117,8 +117,8 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // CORREGIDO: videoURL con mayúsculas
-                string query = "INSERT INTO \"Cancion\" (\"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\") VALUES (@AlbumId, @CantanteId, @Nombre, @Duracion, @Ruta, @Image, @VideoUrl)";
+                // Añadido campo Videoclip para YouTube
+                string query = "INSERT INTO \"Cancion\" (\"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Videoclip\") VALUES (@AlbumId, @CantanteId, @Nombre, @Duracion, @Ruta, @Image, @VideoUrl, @Videoclip)";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -135,8 +135,8 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // CORREGIDO: videoURL con mayúsculas
-                string query = "UPDATE \"Cancion\" SET \"AlbumId\" = @AlbumId, \"CantanteId\" = @CantanteId, \"Nombre\" = @Nombre, \"Duracion\" = @Duracion, \"Ruta\" = @Ruta, \"Image\" = @Image, \"videoURL\" = @VideoUrl WHERE \"CancionId\" = @CancionId";
+                // Añadido campo Videoclip para YouTube
+                string query = "UPDATE \"Cancion\" SET \"AlbumId\" = @AlbumId, \"CantanteId\" = @CantanteId, \"Nombre\" = @Nombre, \"Duracion\" = @Duracion, \"Ruta\" = @Ruta, \"Image\" = @Image, \"videoURL\" = @VideoUrl, \"Videoclip\" = @Videoclip WHERE \"CancionId\" = @CancionId";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -162,7 +162,7 @@ namespace MyMusicApp.Repositories
             }
         }
 
-        // Mapear con videoURL (mayúsculas en DB, pero VideoUrl en C#)
+        // Mapear con videoURL (MP4) y Videoclip (YouTube)
         private Cancion MapCancion(NpgsqlDataReader reader)
         {
             return new Cancion
@@ -174,11 +174,12 @@ namespace MyMusicApp.Repositories
                 Duracion = reader.GetTimeSpan(4),
                 Ruta = reader.GetString(5),
                 Image = reader.GetString(6),
-                VideoUrl = reader.IsDBNull(7) ? null : reader.GetString(7) // Leer videoURL de DB
+                VideoUrl = reader.IsDBNull(7) ? null : reader.GetString(7),    // MP4 para sincronización
+                Videoclip = reader.IsDBNull(8) ? null : reader.GetString(8)    // YouTube para abrir externamente
             };
         }
 
-        // Parámetros con videoURL
+        // Parámetros con videoURL y Videoclip
         private void SetCancionParameters(NpgsqlCommand command, Cancion cancion)
         {
             command.Parameters.AddWithValue("@AlbumId", cancion.AlbumId);
@@ -187,8 +188,10 @@ namespace MyMusicApp.Repositories
             command.Parameters.AddWithValue("@Duracion", cancion.Duracion);
             command.Parameters.AddWithValue("@Ruta", cancion.Ruta);
             command.Parameters.AddWithValue("@Image", cancion.Image);
-            // Nota: el parámetro se llama @VideoUrl pero se mapea a la columna "videoURL"
+            // videoURL se mapea a VideoUrl (MP4 para reproductor)
             command.Parameters.AddWithValue("@VideoUrl", cancion.VideoUrl ?? (object)DBNull.Value);
+            // Videoclip para YouTube
+            command.Parameters.AddWithValue("@Videoclip", cancion.Videoclip ?? (object)DBNull.Value);
         }
     }
 }

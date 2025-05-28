@@ -13,6 +13,14 @@ namespace MyMusicApp.Services
         Task<bool> DeleteAsync(int id);
         Task<List<Cancion>> GetCancionesByAlbumIdAsync(int albumId);
         Task<List<Cancion>> GetCancionesByCantanteIdAsync(int cantanteId); // NUEVO: Para obtener canciones por cantante
-        Task<List<Cancion>> GetCancionesWithVideoAsync(); // NUEVO: Para obtener solo canciones con video
+        
+        // MÉTODOS DE VIDEO ACTUALIZADOS
+        Task<List<Cancion>> GetCancionesWithVideoAsync(); // MP4 para reproductor sincronizado
+        Task<List<Cancion>> GetCancionesWithYouTubeAsync(); // NUEVO: YouTube para abrir externamente
+        Task<List<Cancion>> GetCancionesWithAnyVideoAsync(); // NUEVO: Cualquier tipo de video
+        Task<List<Cancion>> GetCancionesWithBothVideosAsync(); // NUEVO: Ambos tipos de video
+        
+        // ESTADÍSTICAS DE VIDEO
+        Task<VideoStats> GetVideoStatsAsync(); // NUEVO: Estadísticas completas de videos
     }
 }
