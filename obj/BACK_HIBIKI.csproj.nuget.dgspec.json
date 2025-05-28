@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\BACK_HIBIKI.csproj": {}
+    "C:\\Users\\dag25\\Desktop\\BACK_TFG\\BACK_HIBIKI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\BACK_HIBIKI.csproj": {
+    "C:\\Users\\dag25\\Desktop\\BACK_TFG\\BACK_HIBIKI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
+        "projectUniqueName": "C:\\Users\\dag25\\Desktop\\BACK_TFG\\BACK_HIBIKI.csproj",
         "projectName": "BACK_HIBIKI",
-        "projectPath": "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\BACK_HIBIKI.csproj",
-        "packagesPath": "C:\\Users\\Aleja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aleja\\Documents\\BACK_HIBIKI\\obj\\",
+        "projectPath": "C:\\Users\\dag25\\Desktop\\BACK_TFG\\BACK_HIBIKI.csproj",
+        "packagesPath": "C:\\Users\\dag25\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dag25\\Desktop\\BACK_TFG\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Aleja\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\dag25\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -95,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
