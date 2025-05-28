@@ -12,9 +12,18 @@ namespace Models
         public string? VideoUrl { get; set; } = null; // MP4 para sincronización con reproductor
         public string? Videoclip { get; set; } = null; // NUEVO: YouTube para abrir externamente
 
-        public Cancion() {}
+        public string Letra { get; set; } = "";
 
+<<<<<<< HEAD
         public Cancion(int albumId, int cantanteid, string nombre, TimeSpan duracion, string ruta, string image, string? videoUrl = null, string? videoclip = null)
+=======
+        public string Videoclip { get; set; } = "";
+        
+
+        public Cancion() { }
+
+        public Cancion(int albumId, int cantanteid, string nombre, TimeSpan duracion, string ruta, string image, string letra, string videoclip, string? videoUrl = null)
+>>>>>>> bf29f10322204a85337e8d69fd3c779271b9de86
         {
             AlbumId = albumId;
             CantanteId = cantanteid;
@@ -22,8 +31,14 @@ namespace Models
             Duracion = duracion;
             Ruta = ruta;
             Image = image;
+<<<<<<< HEAD
             VideoUrl = videoUrl; // MP4 para reproductor sincronizado
             Videoclip = videoclip; // NUEVO: YouTube para ver externamente
+=======
+            VideoUrl = videoUrl; // NUEVO: Asignar videoUrl
+            Letra = letra;
+            Videoclip = videoclip;
+>>>>>>> bf29f10322204a85337e8d69fd3c779271b9de86
 
             if (string.IsNullOrWhiteSpace(nombre))
             {
