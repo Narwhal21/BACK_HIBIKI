@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "oq2hNoOOzBEP1VoLpVjijFvNxSJms/uK5Mcwkhi2478=",
+  "Hash": "SmGGaSph4cG3xwcpehPfFYwcnsLkk31kpe0Md3eKVW4=",
   "Source": "BACK_HIBIKI",
   "BasePath": "_content/BACK_HIBIKI",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

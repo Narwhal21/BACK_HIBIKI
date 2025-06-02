@@ -106,7 +106,7 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "UPDATE \"Artista\" SET \"Nombre\" = @Nombre, \"OyentesMensuales\" = @OyentesMensuales, \"Descripcion\" = @Descripcion, \"Image\" = @Image WHERE \"CantanteId\",  = @CantanteId";
+               string query = "UPDATE \"Artista\" SET \"Nombre\" = @Nombre, \"OyentesMensuales\" = @OyentesMensuales, \"Descripcion\" = @Descripcion, \"Image\" = @Image WHERE \"CantanteId\" = @CantanteId";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@CantanteId", artista.CantanteId);

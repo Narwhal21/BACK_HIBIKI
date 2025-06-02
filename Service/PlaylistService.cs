@@ -36,7 +36,7 @@ namespace MyMusicApp.Services
             if (playlist.CreadorId <= 0 || playlist.UserId <= 0)
                 throw new ArgumentException("CreadorId y UserId deben ser válidos.");
 
-            playlist.FechaCreacion = DateTime.Now; // Se asegura de que la fecha sea válida
+            playlist.FechaCreacion = DateTime.Now;
 
             await _playlistRepository.AddAsync(playlist);
         }
@@ -61,6 +61,23 @@ namespace MyMusicApp.Services
                 throw new ArgumentException("El ID de la playlist no es válido.");
 
             return await _playlistRepository.DeleteAsync(id);
+        }
+
+        // Nuevos métodos para manejar canciones
+        public async Task<bool> AddCancionToPlaylistAsync(int playlistId, int cancionId)
+        {
+            if (playlistId <= 0 || cancionId <= 0)
+                throw new ArgumentException("Los IDs deben ser válidos.");
+
+            return await _playlistRepository.AddCancionToPlaylistAsync(playlistId, cancionId);
+        }
+
+        public async Task<bool> RemoveCancionFromPlaylistAsync(int playlistId, int cancionId)
+        {
+            if (playlistId <= 0 || cancionId <= 0)
+                throw new ArgumentException("Los IDs deben ser válidos.");
+
+            return await _playlistRepository.RemoveCancionFromPlaylistAsync(playlistId, cancionId);
         }
     }
 }
