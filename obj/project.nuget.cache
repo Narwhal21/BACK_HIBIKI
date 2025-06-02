@@ -57,7 +57,11 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
+<<<<<<< HEAD
       "message": "BACK_HIBIKI depende de System.Formats.Asn1 (>= 5.0.1), pero no se encontró System.Formats.Asn1 5.0.1. System.Formats.Asn1 6.0.0 se resolvió en su lugar.",
+=======
+      "message": "BACK_HIBIKI depende de System.Formats.Asn1 (>= 5.0.1), pero no se encontró System.Formats.Asn1 5.0.1. Se resolvió una mejor coincidencia aproximada de System.Formats.Asn1 6.0.0.",
+>>>>>>> e702acb546cd4c0db332b985a14757629e0c2ea5
       "libraryId": "System.Formats.Asn1",
       "targetGraphs": [
         "net8.0"
