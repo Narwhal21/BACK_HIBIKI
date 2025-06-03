@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "C:\\HibikiB\\BACK_HIBIKI.csproj": {}
   },
   "projects": {
@@ -13,31 +12,14 @@
         "projectPath": "C:\\HibikiB\\BACK_HIBIKI.csproj",
         "packagesPath": "C:\\Users\\Sumisa de sylas\\.nuget\\packages\\",
         "outputPath": "C:\\HibikiB\\obj\\",
-=======
-    "C:\\Users\\dag25\\Desktop\\BACK_TFG\\BACK_HIBIKI.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\dag25\\Desktop\\BACK_TFG\\BACK_HIBIKI.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\dag25\\Desktop\\BACK_TFG\\BACK_HIBIKI.csproj",
-        "projectName": "BACK_HIBIKI",
-        "projectPath": "C:\\Users\\dag25\\Desktop\\BACK_TFG\\BACK_HIBIKI.csproj",
-        "packagesPath": "C:\\Users\\dag25\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dag25\\Desktop\\BACK_TFG\\obj\\",
->>>>>>> e702acb546cd4c0db332b985a14757629e0c2ea5
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-<<<<<<< HEAD
           "C:\\Users\\Sumisa de sylas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-=======
-          "C:\\Users\\dag25\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> e702acb546cd4c0db332b985a14757629e0c2ea5
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -120,11 +102,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
-=======
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
->>>>>>> e702acb546cd4c0db332b985a14757629e0c2ea5
         }
       }
     }

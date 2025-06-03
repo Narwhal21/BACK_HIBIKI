@@ -23,8 +23,12 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                // Solo usar las columnas que sabemos que existen
-                string query = "SELECT \"PlaylistId\", \"CreadorId\", \"Nombre\", \"Image\", \"Descripcion\", \"FechaCreacion\" FROM \"Playlist\"";
+                // JOIN con la tabla Usuario para obtener el nombre del creador
+                string query = @"
+                    SELECT p.""PlaylistId"", p.""CreadorId"", p.""Nombre"", p.""Image"", 
+                           p.""Descripcion"", p.""FechaCreacion"", u.""Name"" as ""CreadorNombre""
+                    FROM ""Playlist"" p
+                    LEFT JOIN ""Usuario"" u ON p.""CreadorId"" = u.""UserId""";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -41,7 +45,11 @@ namespace MyMusicApp.Repositories
                                 Image = reader.IsDBNull(3) ? string.Empty : reader.GetString(3),
                                 Descripcion = reader.IsDBNull(4) ? string.Empty : reader.GetString(4),
                                 FechaCreacion = reader.GetDateTime(5),
-                                Creador = new Usuario { UserId = reader.GetInt32(1) },
+                                Creador = new Usuario 
+                                { 
+                                    UserId = reader.GetInt32(1),
+                                    Name = reader.IsDBNull(6) ? "Usuario desconocido" : reader.GetString(6)
+                                },
                                 Canciones = new List<Cancion>()
                             };
 
@@ -62,7 +70,13 @@ namespace MyMusicApp.Repositories
             {
                 await connection.OpenAsync();
 
-                string playlistQuery = "SELECT \"PlaylistId\", \"CreadorId\", \"Nombre\", \"Image\", \"Descripcion\", \"FechaCreacion\" FROM \"Playlist\" WHERE \"PlaylistId\" = @Id";
+                // JOIN con Usuario para obtener el nombre del creador
+                string playlistQuery = @"
+                    SELECT p.""PlaylistId"", p.""CreadorId"", p.""Nombre"", p.""Image"", 
+                           p.""Descripcion"", p.""FechaCreacion"", u.""Name"" as ""CreadorNombre""
+                    FROM ""Playlist"" p
+                    LEFT JOIN ""Usuario"" u ON p.""CreadorId"" = u.""UserId""
+                    WHERE p.""PlaylistId"" = @Id";
 
                 using (var command = new NpgsqlCommand(playlistQuery, connection))
                 {
@@ -81,22 +95,28 @@ namespace MyMusicApp.Repositories
                                 Image = reader.IsDBNull(3) ? string.Empty : reader.GetString(3),
                                 Descripcion = reader.IsDBNull(4) ? string.Empty : reader.GetString(4),
                                 FechaCreacion = reader.GetDateTime(5),
-                                Creador = new Usuario { UserId = reader.GetInt32(1) },
+                                Creador = new Usuario 
+                                { 
+                                    UserId = reader.GetInt32(1),
+                                    Name = reader.IsDBNull(6) ? "Usuario desconocido" : reader.GetString(6)
+                                },
                                 Canciones = new List<Cancion>()
                             };
                         }
                     }
                 }
 
-                // Obtener las canciones de la playlist
+                // Obtener las canciones de la playlist con JOINs para obtener nombres de artistas
                 if (playlist != null)
                 {
                     try
                     {
                         string cancionesQuery = @"
-                            SELECT c.""CancionId"", c.""Nombre"", c.""Ruta"", c.""Image"", c.""Duracion"", c.""CantanteId"", c.""AlbumId""
+                            SELECT c.""CancionId"", c.""Nombre"", c.""Ruta"", c.""Image"", c.""Duracion"", 
+                                   c.""CantanteId"", c.""AlbumId"", a.""Nombre"" as ""ArtistaNombre""
                             FROM ""Cancion"" c
                             INNER JOIN ""PlaylistCancion"" pc ON c.""CancionId"" = pc.""CancionId""
+                            LEFT JOIN ""Artista"" a ON c.""CantanteId"" = a.""CantanteId""
                             WHERE pc.""PlaylistId"" = @PlaylistId";
 
                         using (var cancionCommand = new NpgsqlCommand(cancionesQuery, connection))
@@ -115,8 +135,10 @@ namespace MyMusicApp.Repositories
                                         Image = cancionReader.IsDBNull(3) ? string.Empty : cancionReader.GetString(3),
                                         Duracion = cancionReader.IsDBNull(4) ? TimeSpan.Zero : cancionReader.GetTimeSpan(4),
                                         CantanteId = cancionReader.GetInt32(5),
-                                        AlbumId = cancionReader.GetInt32(6)
+                                        AlbumId = cancionReader.GetInt32(6),
+                                        Artista = cancionReader.IsDBNull(7) ? "Artista desconocido" : cancionReader.GetString(7)
                                     };
+
                                     playlist.Canciones.Add(cancion);
                                 }
                             }

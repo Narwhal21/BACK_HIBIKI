@@ -12,6 +12,9 @@ namespace MyMusicApp.Repositories
         Task UpdateAsync(Cancion cancion);
         Task<bool> DeleteAsync(int id);
         Task<List<Cancion>> GetCancionesByAlbumIdAsync(int albumId);
-        Task<List<Cancion>> GetCancionesByCantanteIdAsync(int cantanteId); 
+        Task<List<Cancion>> GetCancionesByCantanteIdAsync(int cantanteId);
+        
+        // NUEVO: Método para obtener canciones por género
+        Task<List<Cancion>> GetCancionesByGeneroAsync(int generoId);
     }
 }

@@ -36,7 +36,7 @@ namespace MyMusicApp.Services
             return canciones ?? new List<Cancion>(); // Retorna lista vacía si no hay canciones
         }
 
-        // NUEVO: Método para obtener canciones por cantante
+        // Método para obtener canciones por cantante
         public async Task<List<Cancion>> GetCancionesByCantanteIdAsync(int cantanteId)
         {
             if (cantanteId <= 0)
@@ -47,35 +47,46 @@ namespace MyMusicApp.Services
             return canciones ?? new List<Cancion>(); // Retorna lista vacía si no hay canciones
         }
 
-        // ACTUALIZADO: Método para obtener canciones con video MP4 (para reproductor)
+        // ✅ IMPLEMENTADO: Método para obtener canciones por género
+        public async Task<List<Cancion>> GetCancionesByGeneroAsync(int generoId)
+        {
+            if (generoId <= 0)
+                throw new ArgumentException("El ID del género debe ser mayor a 0.");
+
+            var canciones = await _cancionRepository.GetCancionesByGeneroAsync(generoId);
+
+            return canciones ?? new List<Cancion>(); // Retorna lista vacía si no hay canciones
+        }
+
+        // Método para obtener canciones con video MP4 (para reproductor)
         public async Task<List<Cancion>> GetCancionesWithVideoAsync()
         {
             var todasLasCanciones = await _cancionRepository.GetAllAsync();
             return todasLasCanciones.Where(c => !string.IsNullOrEmpty(c.VideoUrl)).ToList();
         }
 
-        // NUEVO: Método para obtener canciones con videoclip de YouTube
+        // Método para obtener canciones con videoclip de YouTube
         public async Task<List<Cancion>> GetCancionesWithYouTubeAsync()
         {
             var todasLasCanciones = await _cancionRepository.GetAllAsync();
             return todasLasCanciones.Where(c => !string.IsNullOrEmpty(c.Videoclip)).ToList();
         }
 
-        // NUEVO: Método para obtener canciones con cualquier tipo de video
+        // Método para obtener canciones con cualquier tipo de video
         public async Task<List<Cancion>> GetCancionesWithAnyVideoAsync()
         {
             var todasLasCanciones = await _cancionRepository.GetAllAsync();
             return todasLasCanciones.Where(c => c.TieneAlgunVideo).ToList();
         }
 
-        // NUEVO: Método para obtener canciones con ambos tipos de video
+        // Método para obtener canciones con ambos tipos de video
         public async Task<List<Cancion>> GetCancionesWithBothVideosAsync()
         {
             var todasLasCanciones = await _cancionRepository.GetAllAsync();
             return todasLasCanciones.Where(c => c.TieneAmbosVideos).ToList();
         }
 
-        // NUEVO: Estadísticas de videos
+        // Estadísticas de videos
         public async Task<VideoStats> GetVideoStatsAsync()
         {
             var todasLasCanciones = await _cancionRepository.GetAllAsync();
@@ -112,7 +123,7 @@ namespace MyMusicApp.Services
         }
     }
 
-    // NUEVO: Clase para estadísticas de videos
+    // Clase para estadísticas de videos
     public class VideoStats
     {
         public int TotalCanciones { get; set; }

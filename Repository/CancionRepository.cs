@@ -22,15 +22,23 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // Incluimos todos los campos: videoURL, Letra y Videoclip
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Letra\", \"Videoclip\" FROM \"Cancion\"";
+                // JOIN con las tablas Artista y Genero para obtener nombres completos
+                string query = @"
+                    SELECT c.""CancionId"", c.""AlbumId"", c.""CantanteId"", c.""GeneroId"", c.""Nombre"", c.""Duracion"", 
+                           c.""Ruta"", c.""Image"", c.""videoURL"", c.""Letra"", c.""Videoclip"", 
+                           a.""Nombre"" as ""ArtistaNombre"", g.""Nombre"" as ""GeneroNombre"",
+                           al.""Name"" as ""AlbumNombre""
+                    FROM ""Cancion"" c
+                    LEFT JOIN ""Artista"" a ON c.""CantanteId"" = a.""CantanteId""
+                    LEFT JOIN ""Genero"" g ON c.""GeneroId"" = g.""GeneroId""
+                    LEFT JOIN ""Album"" al ON c.""AlbumId"" = al.""AlbumId""";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 using (var reader = await command.ExecuteReaderAsync())
                 {
                     while (await reader.ReadAsync())
                     {
-                        canciones.Add(MapCancion(reader));
+                        canciones.Add(MapCancionComplete(reader));
                     }
                 }
             }
@@ -43,15 +51,24 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // Incluimos todos los campos: videoURL, Letra y Videoclip
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Letra\", \"Videoclip\" FROM \"Cancion\" WHERE \"CancionId\" = @Id";
+                // JOIN con las tablas Artista, Genero y Album para obtener nombres completos
+                string query = @"
+                    SELECT c.""CancionId"", c.""AlbumId"", c.""CantanteId"", c.""GeneroId"", c.""Nombre"", c.""Duracion"", 
+                           c.""Ruta"", c.""Image"", c.""videoURL"", c.""Letra"", c.""Videoclip"", 
+                           a.""Nombre"" as ""ArtistaNombre"", g.""Nombre"" as ""GeneroNombre"",
+                           al.""Name"" as ""AlbumNombre""
+                    FROM ""Cancion"" c
+                    LEFT JOIN ""Artista"" a ON c.""CantanteId"" = a.""CantanteId""
+                    LEFT JOIN ""Genero"" g ON c.""GeneroId"" = g.""GeneroId""
+                    LEFT JOIN ""Album"" al ON c.""AlbumId"" = al.""AlbumId""
+                    WHERE c.""CancionId"" = @Id";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        return await reader.ReadAsync() ? MapCancion(reader) : null;
+                        return await reader.ReadAsync() ? MapCancionComplete(reader) : null;
                     }
                 }
             }
@@ -64,8 +81,14 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // Incluimos todos los campos: videoURL, Letra y Videoclip
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Letra\", \"Videoclip\" FROM \"Cancion\" WHERE \"AlbumId\" = @AlbumId";
+                // JOIN con la tabla Artista para obtener el nombre del artista
+                string query = @"
+                    SELECT c.""CancionId"", c.""AlbumId"", c.""CantanteId"", c.""GeneroId"", c.""Nombre"", c.""Duracion"", 
+                           c.""Ruta"", c.""Image"", c.""videoURL"", c.""Letra"", c.""Videoclip"", 
+                           a.""Nombre"" as ""ArtistaNombre""
+                    FROM ""Cancion"" c
+                    LEFT JOIN ""Artista"" a ON c.""CantanteId"" = a.""CantanteId""
+                    WHERE c.""AlbumId"" = @AlbumId";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -74,7 +97,7 @@ namespace MyMusicApp.Repositories
                     {
                         while (await reader.ReadAsync())
                         {
-                            canciones.Add(MapCancion(reader));
+                            canciones.Add(MapCancionWithArtist(reader));
                         }
                     }
                 }
@@ -90,8 +113,14 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // Incluimos todos los campos: videoURL, Letra y Videoclip
-                string query = "SELECT \"CancionId\", \"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Letra\", \"Videoclip\" FROM \"Cancion\" WHERE \"CantanteId\" = @CantanteId";
+                // JOIN con la tabla Artista para obtener el nombre del artista
+                string query = @"
+                    SELECT c.""CancionId"", c.""AlbumId"", c.""CantanteId"", c.""GeneroId"", c.""Nombre"", c.""Duracion"", 
+                           c.""Ruta"", c.""Image"", c.""videoURL"", c.""Letra"", c.""Videoclip"", 
+                           a.""Nombre"" as ""ArtistaNombre""
+                    FROM ""Cancion"" c
+                    LEFT JOIN ""Artista"" a ON c.""CantanteId"" = a.""CantanteId""
+                    WHERE c.""CantanteId"" = @CantanteId";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -100,7 +129,40 @@ namespace MyMusicApp.Repositories
                     {
                         while (await reader.ReadAsync())
                         {
-                            canciones.Add(MapCancion(reader));
+                            canciones.Add(MapCancionWithArtist(reader));
+                        }
+                    }
+                }
+            }
+
+            return canciones;
+        }
+
+        // IMPLEMENTACIÓN del método para obtener canciones por género
+        public async Task<List<Cancion>> GetCancionesByGeneroAsync(int generoId)
+        {
+            var canciones = new List<Cancion>();
+
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                // JOIN con las tablas Artista y Genero para obtener nombres completos
+                string query = @"
+                    SELECT c.""CancionId"", c.""AlbumId"", c.""CantanteId"", c.""GeneroId"", c.""Nombre"", c.""Duracion"", 
+                           c.""Ruta"", c.""Image"", c.""videoURL"", c.""Letra"", c.""Videoclip"", 
+                           a.""Nombre"" as ""ArtistaNombre""
+                    FROM ""Cancion"" c
+                    LEFT JOIN ""Artista"" a ON c.""CantanteId"" = a.""CantanteId""
+                    WHERE c.""GeneroId"" = @GeneroId";
+
+                using (var command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@GeneroId", generoId);
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            canciones.Add(MapCancionWithArtist(reader));
                         }
                     }
                 }
@@ -116,8 +178,8 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // Incluimos todos los campos: videoURL, Letra y Videoclip
-                string query = "INSERT INTO \"Cancion\" (\"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Letra\", \"Videoclip\") VALUES (@AlbumId, @CantanteId, @Nombre, @Duracion, @Ruta, @Image, @VideoUrl, @Letra, @Videoclip)";
+                // Incluir GeneroId en la inserción
+                string query = "INSERT INTO \"Cancion\" (\"AlbumId\", \"CantanteId\", \"Nombre\", \"Duracion\", \"Ruta\", \"Image\", \"videoURL\", \"Letra\", \"Videoclip\", \"GeneroId\") VALUES (@AlbumId, @CantanteId, @Nombre, @Duracion, @Ruta, @Image, @VideoUrl, @Letra, @Videoclip, @GeneroId)";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -134,8 +196,8 @@ namespace MyMusicApp.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                // CORREGIDO: Eliminada la coma extra después de "Letra"
-                string query = "UPDATE \"Cancion\" SET \"AlbumId\" = @AlbumId, \"CantanteId\" = @CantanteId, \"Nombre\" = @Nombre, \"Duracion\" = @Duracion, \"Ruta\" = @Ruta, \"Image\" = @Image, \"videoURL\" = @VideoUrl, \"Letra\" = @Letra, \"Videoclip\" = @Videoclip WHERE \"CancionId\" = @CancionId";
+                // Incluir GeneroId en la actualización
+                string query = "UPDATE \"Cancion\" SET \"AlbumId\" = @AlbumId, \"CantanteId\" = @CantanteId, \"Nombre\" = @Nombre, \"Duracion\" = @Duracion, \"Ruta\" = @Ruta, \"Image\" = @Image, \"videoURL\" = @VideoUrl, \"Letra\" = @Letra, \"Videoclip\" = @Videoclip, \"GeneroId\" = @GeneroId WHERE \"CancionId\" = @CancionId";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -161,7 +223,27 @@ namespace MyMusicApp.Repositories
             }
         }
 
-        // Mapear con videoURL (MP4), Letra y Videoclip (YouTube)
+        // CORREGIDO: Mapear con videoURL (MP4), Letra, Videoclip (YouTube) y nombre del artista
+        private Cancion MapCancionWithArtist(NpgsqlDataReader reader)
+        {
+            return new Cancion
+            {
+                CancionId = reader.GetInt32(0),
+                AlbumId = reader.GetInt32(1),
+                CantanteId = reader.GetInt32(2),
+                GeneroId = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3), // ✅ INCLUIR GeneroId
+                Nombre = reader.GetString(4),
+                Duracion = reader.GetTimeSpan(5),
+                Ruta = reader.GetString(6),
+                Image = reader.GetString(7),
+                VideoUrl = reader.IsDBNull(8) ? null : reader.GetString(8), // videoURL de DB
+                Letra = reader.IsDBNull(9) ? string.Empty : reader.GetString(9), // Letra de DB
+                Videoclip = reader.IsDBNull(10) ? string.Empty : reader.GetString(10), // Videoclip de DB
+                Artista = reader.IsDBNull(11) ? "Artista desconocido" : reader.GetString(11) // Nombre del artista
+            };
+        }
+
+        // LEGACY: Mapear sin artista (para compatibilidad) - CORREGIDO
         private Cancion MapCancion(NpgsqlDataReader reader)
         {
             return new Cancion
@@ -169,17 +251,41 @@ namespace MyMusicApp.Repositories
                 CancionId = reader.GetInt32(0),
                 AlbumId = reader.GetInt32(1),
                 CantanteId = reader.GetInt32(2),
-                Nombre = reader.GetString(3),
-                Duracion = reader.GetTimeSpan(4),
-                Ruta = reader.GetString(5),
-                Image = reader.GetString(6),
-                VideoUrl = reader.IsDBNull(7) ? null : reader.GetString(7), // videoURL de DB
-                Letra = reader.IsDBNull(8) ? string.Empty : reader.GetString(8), // Letra de DB
-                Videoclip = reader.IsDBNull(9) ? string.Empty : reader.GetString(9) // Videoclip de DB
+                GeneroId = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3), // ✅ INCLUIR GeneroId
+                Nombre = reader.GetString(4),
+                Duracion = reader.GetTimeSpan(5),
+                Ruta = reader.GetString(6),
+                Image = reader.GetString(7),
+                VideoUrl = reader.IsDBNull(8) ? null : reader.GetString(8), // videoURL de DB
+                Letra = reader.IsDBNull(9) ? string.Empty : reader.GetString(9), // Letra de DB
+                Videoclip = reader.IsDBNull(10) ? string.Empty : reader.GetString(10), // Videoclip de DB
+                Artista = "Artista desconocido" // Valor por defecto
             };
         }
 
-        // Parámetros con videoURL, Letra y Videoclip
+        // CORREGIDO: Mapear con artista, género y álbum completos
+        private Cancion MapCancionComplete(NpgsqlDataReader reader)
+        {
+            return new Cancion
+            {
+                CancionId = reader.GetInt32(0),
+                AlbumId = reader.GetInt32(1),
+                CantanteId = reader.GetInt32(2),
+                GeneroId = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3), // ✅ INCLUIR GeneroId
+                Nombre = reader.GetString(4),
+                Duracion = reader.GetTimeSpan(5),
+                Ruta = reader.GetString(6),
+                Image = reader.GetString(7),
+                VideoUrl = reader.IsDBNull(8) ? null : reader.GetString(8), // videoURL de DB
+                Letra = reader.IsDBNull(9) ? string.Empty : reader.GetString(9), // Letra de DB
+                Videoclip = reader.IsDBNull(10) ? string.Empty : reader.GetString(10), // Videoclip de DB
+                Artista = reader.IsDBNull(11) ? "Artista desconocido" : reader.GetString(11), // Nombre del artista
+                Genero = reader.IsDBNull(12) ? "Sin género" : reader.GetString(12), // Nombre del género
+                Album = reader.IsDBNull(13) ? "Álbum desconocido" : reader.GetString(13) // Nombre del álbum
+            };
+        }
+
+        // Parámetros con videoURL, Letra, Videoclip y GeneroId
         private void SetCancionParameters(NpgsqlCommand command, Cancion cancion)
         {
             command.Parameters.AddWithValue("@AlbumId", cancion.AlbumId);
@@ -194,6 +300,8 @@ namespace MyMusicApp.Repositories
             command.Parameters.AddWithValue("@Letra", cancion.Letra ?? (object)DBNull.Value);
             // Videoclip para YouTube
             command.Parameters.AddWithValue("@Videoclip", cancion.Videoclip ?? (object)DBNull.Value);
+            // ✅ CORREGIDO: GeneroId
+            command.Parameters.AddWithValue("@GeneroId", cancion.GeneroId.HasValue ? (object)cancion.GeneroId.Value : DBNull.Value);
         }
     }
 }

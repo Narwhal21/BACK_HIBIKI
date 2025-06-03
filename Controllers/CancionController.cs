@@ -56,7 +56,6 @@ namespace MyMusicApp.Controllers
             return Ok(canciones);
         }
 
-        // NUEVO: Endpoint para obtener canciones por cantante
         [HttpGet("ByCantante/{cantanteId}")]
         public async Task<ActionResult<List<Cancion>>> GetCancionesByCantanteIdAsync(int cantanteId)
         {
@@ -68,6 +67,31 @@ namespace MyMusicApp.Controllers
             }
 
             return Ok(canciones);
+        }
+
+        // ✅ NUEVO: Endpoint para obtener canciones por género
+        [HttpGet("ByGenero/{generoId}")]
+        public async Task<ActionResult<List<Cancion>>> GetCancionesByGeneroIdAsync(int generoId)
+        {
+            try
+            {
+                var canciones = await _cancionService.GetCancionesByGeneroAsync(generoId);
+
+                if (canciones == null || canciones.Count == 0)
+                {
+                    return NotFound($"No se encontraron canciones para el género con ID {generoId}.");
+                }
+
+                return Ok(canciones);
+            }
+            catch (System.ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, $"Error interno: {ex.Message}");
+            }
         }
 
         // ENDPOINTS DE VIDEO ACTUALIZADOS Y NUEVOS

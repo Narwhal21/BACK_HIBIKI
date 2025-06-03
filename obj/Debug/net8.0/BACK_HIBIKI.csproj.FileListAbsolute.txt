@@ -579,12 +579,10 @@ C:\Users\Aleja\Documents\BACK_HIBIKI\obj\Debug\net8.0\scopedcss\bundle\BACK_HIBI
 C:\Users\Aleja\Documents\BACK_HIBIKI\obj\Debug\net8.0\BACK_HIB.B56F4C01.Up2Date
 C:\Users\Aleja\Documents\BACK_HIBIKI\obj\Debug\net8.0\BACK_HIBIKI.genruntimeconfig.cache
 C:\Users\Aleja\Documents\BACK_HIBIKI\obj\Debug\net8.0\ref\BACK_HIBIKI.dll
-<<<<<<< HEAD
 C:\HibikiB\bin\Debug\net8.0\package-lock.json
 C:\HibikiB\bin\Debug\net8.0\BACK_HIBIKI.staticwebassets.endpoints.json
 C:\HibikiB\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\HibikiB\obj\Debug\net8.0\staticwebassets\msbuild.BACK_HIBIKI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-=======
 C:\Users\dag25\Desktop\BACK_TFG\obj\Debug\net8.0\BACK_HIBIKI.csproj.AssemblyReference.cache
 C:\Users\dag25\Desktop\BACK_TFG\obj\Debug\net8.0\BACK_HIBIKI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\dag25\Desktop\BACK_TFG\obj\Debug\net8.0\BACK_HIBIKI.AssemblyInfoInputs.cache
